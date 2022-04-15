@@ -1,0 +1,267 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="SALab2._1.ConsoleMenu.Base.MenuBase">
+    <Position X="8.5" Y="5" Width="1.5" />
+    <NestedTypes>
+      <Enum Name="SALab2._1.ConsoleMenu.Base.MenuBase.ConsoleMode" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>ConsoleMenu\Base\MenuBase.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+      <Struct Name="SALab2._1.ConsoleMenu.Base.MenuBase.Message" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>ConsoleMenu\Base\MenuBase.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+      <Struct Name="SALab2._1.ConsoleMenu.Base.MenuBase.Pattern" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>ConsoleMenu\Base\MenuBase.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AEgAAEAAAAAAAgAACAAAgIABAAQAAAAACAAAAAAAAAI=</HashCode>
+      <FileName>ConsoleMenu\Base\MenuBase.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="PlaceService" />
+      <Field Name="UserService" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="SALab2._1.ConsoleMenu.Enter.PersonalAccountMenu">
+    <Position X="5.5" Y="1" Width="2" />
+    <NestedTypes>
+      <Enum Name="SALab2._1.ConsoleMenu.Enter.PersonalAccountMenu.Option" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>ConsoleMenu\Enter\PersonalAccountMenu.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <InheritanceLine Type="SALab2._1.ConsoleMenu.Base.MenuBase" ManuallyRouted="true">
+      <Path>
+        <Point X="9.25" Y="5" />
+        <Point X="9.25" Y="4.633" />
+        <Point X="6.5" Y="4.633" />
+        <Point X="6.5" Y="3.972" />
+      </Path>
+    </InheritanceLine>
+    <AssociationLine Name="placeMenu" Type="SALab2._1.ConsoleMenu.PlaceMenu.Base.PlaceMenuBase" FixedToPoint="true">
+      <Path>
+        <Point X="7.5" Y="1.178" />
+        <Point X="11.75" Y="1.178" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AUABAAAAAAAAAAAAAAAAAAAAAAAIAIAACAAAAAAAAAA=</HashCode>
+      <FileName>ConsoleMenu\Enter\PersonalAccountMenu.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="placeMenu" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="SALab2._1.ConsoleMenu.PlaceMenu.Base.PlaceMenuBase">
+    <Position X="11.75" Y="1" Width="2.5" />
+    <AssociationLine Name="User" Type="DAL.Entities.PersonEntity.User" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="12.312" Y="1" />
+        <Point X="12.312" Y="0.625" />
+        <Point X="4.5" Y="0.625" />
+        <Point X="4.5" Y="2.25" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="Place" Type="DAL.Entities.PlaceEntity.Place" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="12.312" Y="1" />
+        <Point X="12.312" Y="0.625" />
+        <Point X="2.688" Y="0.625" />
+        <Point X="2.688" Y="2.25" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>ACAJAAAEAAAAAAAAAAAAAAAAgAAAAAAACEAAAAAgAAA=</HashCode>
+      <FileName>ConsoleMenu\PlaceMenu\Base\PlaceMenuBase.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="User" />
+      <Property Name="Place" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="SALab2._1.ConsoleMenu.PlaceMenu.PlaceMenuManager">
+    <Position X="15.25" Y="1" Width="1.75" />
+    <NestedTypes>
+      <Enum Name="SALab2._1.ConsoleMenu.PlaceMenu.PlaceMenuManager.Option" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>ConsoleMenu\PlaceMenu\PlaceMenuManager.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAAAAIAQAACAAAAAAAAAAAACgAAAAAAAAA=</HashCode>
+      <FileName>ConsoleMenu\PlaceMenu\PlaceMenuManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SALab2._1.ConsoleMenu.PlaceMenu.PlaceMenuUser">
+    <Position X="17.25" Y="1" Width="1.5" />
+    <NestedTypes>
+      <Enum Name="SALab2._1.ConsoleMenu.PlaceMenu.PlaceMenuUser.Option" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>ConsoleMenu\PlaceMenu\PlaceMenuUser.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <InheritanceLine Type="SALab2._1.ConsoleMenu.PlaceMenu.Base.PlaceMenuBase" FixedToPoint="true">
+      <Path>
+        <Point X="13.312" Y="1" />
+        <Point X="13.312" Y="0.625" />
+        <Point X="18" Y="0.625" />
+        <Point X="18" Y="1" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAA=</HashCode>
+      <FileName>ConsoleMenu\PlaceMenu\PlaceMenuUser.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SALab2._1.ConsoleMenu.MainMenu">
+    <Position X="8.25" Y="1.5" Width="2" />
+    <NestedTypes>
+      <Enum Name="SALab2._1.ConsoleMenu.MainMenu.Option" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>ConsoleMenu\MainMenu.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AEAAAACAAAAAAAAAAAAAAAAAAAAAABAACQAAAAAAAAA=</HashCode>
+      <FileName>ConsoleMenu\MainMenu.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="personalAccountMenu" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="SALab2._1.Exceptions.ExistenceEmailException" Collapsed="true">
+    <Position X="15.5" Y="4.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Exceptions\ExistenceEmailException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SALab2._1.Exceptions.ExistencePlaceException" Collapsed="true">
+    <Position X="15.5" Y="5.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Exceptions\ExistencePlaceException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SALab2._1.Exceptions.IncorrectEmailOrPasswordException" Collapsed="true">
+    <Position X="17.5" Y="4.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Exceptions\IncorrectEmailOrPasswordException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SALab2._1.Exceptions.InvalidOptionException" Collapsed="true">
+    <Position X="15.5" Y="6" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Exceptions\InvalidOptionException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SALab2._1.Exceptions.NonExistenceEmailException" Collapsed="true">
+    <Position X="17.5" Y="5.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Exceptions\NonExistenceEmailException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SALab2._1.Repository.Base.PlaceRepository" BaseTypeListCollapsed="true">
+    <Position X="3.75" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYAAAAAAAAAAABAAAAAAAAAAAEAAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>Repository\Base\PlaceRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="SALab2._1.Repository.Base.UserRepository" BaseTypeListCollapsed="true">
+    <Position X="1.75" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYAAAAAAAEAAABAAAAAAAAAAAEAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Repository\Base\UserRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="SALab2._1.Service.Base.PlaceService" BaseTypeListCollapsed="true">
+    <Position X="3.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAIBAAAAAAAAAECAAAAAAABAAAAAgAAAAAgQAA=</HashCode>
+      <FileName>Service\Base\PlaceService.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="PlaceRepository" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="SALab2._1.Service.Base.UserService" BaseTypeListCollapsed="true">
+    <Position X="1.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAACAAAAAAAAEAAAAAAAAAQAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>Service\Base\UserService.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="UserRepository" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DAL.Entities.PlaceEntity.Place">
+    <Position X="2" Y="2.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="DAL.Entities.PersonEntity.User">
+    <Position X="3.75" Y="2.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Interface Name="SALab2._1.ConsoleMenu.Interfaces.IMenu&lt;T&gt;" Collapsed="true">
+    <Position X="10.5" Y="5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAIABAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ConsoleMenu\Interfaces\IMenu.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="SALab2._1.ConsoleMenu.Interfaces.IRunableMenu" Collapsed="true">
+    <Position X="10.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>ConsoleMenu\Interfaces\IRunableMenu.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="SALab2._1.Repository.IPlaceRepository" Collapsed="true">
+    <Position X="3.75" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYAAAAAAAAAAABAAAAAAAAAAAEAAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>Repository\IPlaceRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="SALab2._1.Repository.IUserRepository" Collapsed="true">
+    <Position X="1.75" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYAAAAAAAEAAABAAAAAAAAAAAEAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Repository\IUserRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="SALab2._1.Service.IUserService" Collapsed="true">
+    <Position X="5.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAAAAAAAAAAAAAAAAAQAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>Service\IUserService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="SALab2._1.Service.IPlaceService" Collapsed="true">
+    <Position X="5.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAAAAAAAAAECAAAAAAABAAAAAgAAAAAgQAA=</HashCode>
+      <FileName>Service\IPlaceService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

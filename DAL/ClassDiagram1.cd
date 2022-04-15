@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="DAL.Context.PersonContext">
+    <Position X="14" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Context\PersonContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAL.Context.PlaceContext">
+    <Position X="14" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAA=</HashCode>
+      <FileName>Context\PlaceContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAL.Entities.CommentEntity.Comment">
+    <Position X="10" Y="5.75" Width="1.5" />
+    <AssociationLine Name="Replies" Type="DAL.Entities.CommentEntity.Comment" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="10" Y="6.594" />
+        <Point X="9.625" Y="6.594" />
+        <Point X="9.625" Y="7.613" />
+        <Point X="10.978" Y="7.613" />
+        <Point X="10.978" Y="7.238" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="PersonWhoLeft" Type="DAL.Entities.PersonEntity.User" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="10.469" Y="5.75" />
+        <Point X="10.469" Y="5.375" />
+        <Point X="7.062" Y="5.375" />
+        <Point X="7.062" Y="4.459" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AEACAAAAAgAAAAAAAAAAAAAgAAAAAAQAAAAAAAAIAAA=</HashCode>
+      <FileName>Entities\CommentEntity\Comment.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="PlaceWhereLeft" />
+      <Property Name="PersonWhoLeft" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Replies" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="DAL.Entities.PersonEntity.User">
+    <Position X="6.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQACAAAAACAoAAAAIAACAAQABAAAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\PersonEntity\User.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="PersonRole" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="VisitedPlaces" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="DAL.Entities.PersonEntity.Role">
+    <Position X="1.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAA=</HashCode>
+      <FileName>Entities\PersonEntity\User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAL.Entities.PersonEntity.Manager">
+    <Position X="2.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\PersonEntity\User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAL.Entities.PersonEntity.UserWithoutPermission">
+    <Position X="0.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\PersonEntity\User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAL.Entities.PlaceEntity.Place">
+    <Position X="11" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAEAAAAAAQAAAAAAAAEIAAAAAAAKAA=</HashCode>
+      <FileName>Entities\PlaceEntity\Place.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
