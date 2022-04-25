@@ -9,12 +9,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Entities\MediaEntity\Base\Components\**" />
-    <EmbeddedResource Remove="Entities\MediaEntity\Base\Components\**" />
-    <None Remove="Entities\MediaEntity\Base\Components\**" />
+    <Compile Remove="Models\MediaEntity\Base\Components\**" />
+    <EmbeddedResource Remove="Models\MediaEntity\Base\Components\**" />
+    <None Remove="Models\MediaEntity\Base\Components\**" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.4">
       <PrivateAssets>all</PrivateAssets>
@@ -26,6 +27,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.Graph" Version="4.25.0" />
+    <PackageReference Include="Mvc2Futures" Version="2.0.50217" />
     <PackageReference Include="Portable.BouncyCastle" Version="1.9.0" />
     <PackageReference Include="Xabe.FFmpeg" Version="5.1.0" />
   </ItemGroup>

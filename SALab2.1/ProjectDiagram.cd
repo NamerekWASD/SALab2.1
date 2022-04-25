@@ -193,12 +193,18 @@
   </Class>
   <Class Name="SALab2._1.Service.Base.PlaceService" BaseTypeListCollapsed="true">
     <Position X="3.75" Y="5.75" Width="1.5" />
+    <AssociationLine Name="UserRepository" Type="SALab2._1.Repository.IUserRepository">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-1.136" Y="0.359" />
+      </MemberNameLabel>
+    </AssociationLine>
     <TypeIdentifier>
       <HashCode>gAAAAAAIBAAAAAAAAAECAAAAAAABAAAAAgAAAAAgQAA=</HashCode>
       <FileName>Service\Base\PlaceService.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Field Name="PlaceRepository" />
+      <Field Name="UserRepository" />
     </ShowAsAssociation>
     <Lollipop Position="0.2" />
   </Class>

@@ -26,7 +26,6 @@ namespace SALab2._1.ConsoleMenu.Base
             public const string NAME = @"^[a-zA-Z]+[\s|-]?[a-zA-Z]+[\s|-]?[a-zA-Z]+$";
             public const string EMAIL = @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$";
             public const string PASSWORD = @"^(.{8,15}|[0-9]+|[a-z]+)$";
-            public const string PATH = @"^(?:[a - zA - Z]\:|\\\\[\w\.]+\\[\w.$]+)\\(?:[\w]+\\)*\w([\w.])+$";
         }
         public MenuBase(string[] options = null)
         {

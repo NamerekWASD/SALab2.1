@@ -1,16 +1,21 @@
 ﻿using SALab2._1.ConsoleMenu.PlaceMenu.Base;
 
-namespace SALab2._1.ConsoleMenu.PlaceMenu
+namespace SALab2._1.ConsoleMenu.PlaceMenu.ManagerMenu
 {
-    internal class PlaceMenuUser : PlaceMenuBase
+    internal class PlaceMenuManager : PlaceMenuBase
     {
         private static string[] options =
         {
-        "1. Add Comment;",
-        "2. Attach file;",
-        "3. Show place info;",
-        "4. back."
-    };
+            "1. Add place",
+            "2. Edit place",
+            "3. Remove place",
+            "4. Make a request;",
+            "5. Add Comment;",
+            "6. Attach file;",
+            "7. Show place info;",
+            "8. back."
+        };
+
         private enum Option
         {
             ADD_COMMENT = 1,
@@ -18,11 +23,14 @@ namespace SALab2._1.ConsoleMenu.PlaceMenu
             SHOW_PLACE_INFO,
             BACK
         }
-        public PlaceMenuUser()
+        private readonly RequestMenu requestMenu;
+
+        public PlaceMenuManager()
             : base(options)
         {
-
+            requestMenu = new RequestMenu();
         }
+
         protected sealed override ConsoleMode ProcessOption(int option)
         {
             Console.Clear();
@@ -45,7 +53,6 @@ namespace SALab2._1.ConsoleMenu.PlaceMenu
                     return ConsoleMode.CONTINUE;
             }
         }
-
 
     }
 }

@@ -1,13 +1,9 @@
-﻿using DAL.Entities.PersonEntity;
-using DAL.Entities.PlaceEntity;
+﻿using DAL.Models.PersonEntity;
+using DAL.Models.PlaceEntity;
 using SALab2._1.ConsoleMenu.Base;
 using SALab2._1.ConsoleMenu.PlaceMenu;
 using SALab2._1.ConsoleMenu.PlaceMenu.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using SALab2._1.ConsoleMenu.PlaceMenu.ManagerMenu;
 
 namespace SALab2._1.ConsoleMenu.Enter
 {
@@ -46,7 +42,7 @@ namespace SALab2._1.ConsoleMenu.Enter
         {
             Console.Clear();
 
-            
+
             Option action = (Option)option;
             switch (action)
             {

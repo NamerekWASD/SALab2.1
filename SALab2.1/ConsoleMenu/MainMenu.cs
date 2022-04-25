@@ -1,14 +1,7 @@
-﻿using SALab2._1.ConsoleMenu.Base;
-using System.Net.Mail;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DAL.Entities.PersonEntity;
-using SALab2._1.Exceptions;
-using SALab2._1.Repository.Base;
+﻿using DAL.Models.PersonEntity;
+using SALab2._1.ConsoleMenu.Base;
 using SALab2._1.ConsoleMenu.Enter;
+using SALab2._1.Exceptions;
 
 namespace SALab2._1.ConsoleMenu
 {
@@ -59,29 +52,18 @@ namespace SALab2._1.ConsoleMenu
         {
             string email = string.Empty;
             string password = string.Empty;
-            User user = new();
 
-            try
-            {
-                email = ReadDataInput("Email: ");
-                password = ReadDataInput("Password: ");
-                user = UserService.LogIn(email, password);
-            }
-            catch (IncorrectEmailOrPasswordException ex)
-            {
-                Console.WriteLine(ex.Message);
-                return;
-            }
+            email = ReadDataInput("Email: ");
+
+            password = ReadDataInput("Password: ");
+
             personalAccountMenu = new PersonalAccountMenu(email, password);
             personalAccountMenu.Run();
         }
 
         private void SignIn()
         {
-            User user = new();
 
-            string name = ReadDataInput("Name: ", Pattern.NAME);
-            string surname = ReadDataInput("Surname: ", Pattern.NAME);
             string email = ReadDataInput("Email: ", Pattern.EMAIL);
             string password = string.Empty;
             while (true)
@@ -93,6 +75,9 @@ namespace SALab2._1.ConsoleMenu
                 }
             }
 
+            string name = ReadDataInput("Name: ", Pattern.NAME);
+            string surname = ReadDataInput("Surname: ", Pattern.NAME);
+            
             Console.WriteLine("Are you manager? ");
             Role role = null;
             if (ChoiceToBool())

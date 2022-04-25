@@ -1,26 +1,18 @@
-﻿using DAL.Entities.CommentEntity;
-using DAL.Entities.MediaEntity;
-using DAL.Entities.MediaEntity.Base;
-using DAL.Entities.MediaEntity.MatchingToPlace;
-using DAL.Entities.PersonEntity;
-using DAL.Entities.PlaceEntity;
+﻿using DAL.Models.MediaEntity;
+using DAL.Models.MediaEntity.Base;
+using DAL.Models.PersonEntity;
+using DAL.Models.PlaceEntity;
 using SALab2._1.ConsoleMenu.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SALab2._1.ConsoleMenu.PlaceMenu.Base
 {
     internal class PlaceMenuBase : MenuBase
     {
-        public User User { get; set; } = new();
-        public Place Place { private get; set; } = new ();
+        public User User { get; set; } = new User();
+        public Place Place { private get; set; } = new();
         public PlaceMenuBase(string[] options)
             : base(options)
         {
-
         }
         protected override ConsoleMode ProcessOption(int option)
         {
@@ -41,16 +33,17 @@ namespace SALab2._1.ConsoleMenu.PlaceMenu.Base
                     case 1:
                         try
                         {
-                            file = new Video(ReadDataInput("Path: ", Pattern.PATH));
+                            file = new Video(ReadDataInput("Path: "));
                         }
                         catch (FileNotFoundException ex) { Console.WriteLine(ex.Message); }
                         break;
                     case 2:
                         try
                         {
-                            file = new Photo(ReadDataInput("Path: ", Pattern.PATH));
-                        }catch (FileNotFoundException ex) { Console.WriteLine(ex.Message); }
-                        
+                            file = new Photo(ReadDataInput("Path: "));
+                        }
+                        catch (FileNotFoundException ex) { Console.WriteLine(ex.Message); }
+
                         break;
                     default:
                         Console.WriteLine(Message.DEFUNCT_OPTION);
@@ -78,17 +71,20 @@ namespace SALab2._1.ConsoleMenu.PlaceMenu.Base
         }
         private Place FindByKeyWord()
         {
-            string keyword = ReadDataInput("Key word: ");
-            List<Place> placesFound = new();
-            try
+            List<Place> placesFound = new List<Place>();
+            do
             {
-                placesFound = PlaceService.GetPlacesByKeyWord(keyword);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                return null;
-            }
+                string keyword = ReadDataInput("Key word: ");
+                try
+                {
+                    placesFound = PlaceService.GetPlacesByKeyWord(keyword);
+                    break;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            } while (!Equals(Console.ReadKey(), 'b'));
             for (int i = 0; i < placesFound.Count; i++)
             {
                 Place? p = placesFound[i];
@@ -110,7 +106,7 @@ namespace SALab2._1.ConsoleMenu.PlaceMenu.Base
         }
         protected Place UsePreviousPlaceOrGetAnother()
         {
-            if(Place.Name is null || Place.Name.Length is 0)
+            if (Place.Name is null || Place.Name.Length is 0)
             {
                 return FindByKeyWord();
             }
