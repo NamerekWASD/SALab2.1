@@ -51,14 +51,7 @@ namespace SALab2._1.ConsoleMenu
 
         private void LogIn()
         {
-            string email = string.Empty;
-            string password = string.Empty;
-
-            email = ReadDataInput("Email: ");
-
-            password = ReadDataInput("Password: ");
-
-            personalAccountMenu = new PersonalAccountMenu(email, password);
+            personalAccountMenu = new PersonalAccountMenu(ReadDataInput("Email: "), ReadDataInput("Password: "));
             personalAccountMenu.Run();
         }
 
@@ -79,7 +72,7 @@ namespace SALab2._1.ConsoleMenu
             string name = ReadDataInput("Name: ", Pattern.NAME);
             string surname = ReadDataInput("Surname: ", Pattern.NAME);
             
-            Console.WriteLine("Are you manager? ");
+            /*Console.WriteLine("Are you manager? ");
             Role role = null;
             if (ChoiceToBool())
             {
@@ -88,7 +81,7 @@ namespace SALab2._1.ConsoleMenu
             else
             {
                 role = new UserWithoutPermission();
-            }
+            }*/
             try
             {
                 UserService.SignIn(name, surname, email, password);

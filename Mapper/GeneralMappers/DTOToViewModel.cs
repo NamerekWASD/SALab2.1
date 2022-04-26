@@ -9,7 +9,7 @@ using ViewModels.UserViewModels;
 
 namespace Mappers.GeneralMappers
 {
-    public static class BLLtoPL
+    public static class DTOToViewModel
     {
         public static PlaceViewModel ToViewModel(this PlaceDTO placeDTO)
         {
@@ -27,10 +27,11 @@ namespace Mappers.GeneralMappers
         public static ICollection<PlaceViewModel> ToViewModel(this ICollection<PlaceDTO> placesDTO)
         {
             ICollection<PlaceViewModel> placesViewModel = new List<PlaceViewModel>();
-            foreach (var place in placesDTO)
-            {
-                placesViewModel.Add(place.ToViewModel());
-            }
+            if (placesDTO != null)
+                foreach (var place in placesDTO)
+                {
+                    placesViewModel.Add(place.ToViewModel());
+                }
             return placesViewModel;
         }
         public static CommentViewModel ToViewModel(this CommentDTO commentDTO)
@@ -47,10 +48,11 @@ namespace Mappers.GeneralMappers
         public static ICollection<CommentViewModel> ToViewModel(this ICollection<CommentDTO> commentsDTO)
         {
             ICollection<CommentViewModel> commentsViewModel = new List<CommentViewModel>();
-            foreach (var comment in commentsDTO)
-            {
-                commentsViewModel.Add(comment.ToViewModel());
-            }
+            if (commentsDTO != null)
+                foreach (var comment in commentsDTO)
+                {
+                    commentsViewModel.Add(comment.ToViewModel());
+                }
             return commentsViewModel;
         }
 
@@ -67,10 +69,11 @@ namespace Mappers.GeneralMappers
         public static ICollection<FileBaseViewModel> ToViewModel(this ICollection<FileContainerDTO> filesDTO)
         {
             ICollection<FileBaseViewModel> filesModel = new List<FileBaseViewModel>();
-            foreach (var file in filesDTO)
-            {
-                filesModel.Add(file.ToViewModel());
-            }
+            if (filesDTO != null)
+                foreach (var file in filesDTO)
+                {
+                    filesModel.Add(file.ToViewModel());
+                }
             return filesModel;
         }
         public static UserViewModel ToViewModel(this UserDTO userDTO)

@@ -9,7 +9,9 @@ namespace Models.MediaModels
         public int Id { get; set; }
         private string _path;
         public string Path { get { return _path; } set { _path = value; } }
-        public UserModel UserWhoAttached { get; set; }
-        public PlaceModel PlaceWhereAttached { get; set; }
+        public int UserWhoAttachedId { get; set; }
+        public virtual UserModel UserWhoAttached { get; set; }
+        public int PlaceWhereAttachedId { get; set; }
+        public virtual PlaceModel PlaceWhereAttached { get; set; }
     }
 }

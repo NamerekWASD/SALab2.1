@@ -10,8 +10,7 @@ namespace SALab2._1.ConsoleMenu.PlaceMenu.ManagerMenu
             "1. Add place",
             "2. Edit place",
             "3. Remove place",
-            "4. Make a request;",
-            "5. back."
+            "4. back."
         };
 
         public RequestMenu()
@@ -24,7 +23,6 @@ namespace SALab2._1.ConsoleMenu.PlaceMenu.ManagerMenu
             ADD_PLACE = 1,
             EDIT_PLACE,
             REMOVE_PLACE,
-            MAKE_REQUEST,
             BACK,
         }
         protected override ConsoleMode ProcessOption(int option)
@@ -41,9 +39,6 @@ namespace SALab2._1.ConsoleMenu.PlaceMenu.ManagerMenu
                     return ConsoleMode.CONTINUE;
                 case Option.REMOVE_PLACE:
                     RemovePlace();
-                    return ConsoleMode.CONTINUE;
-                case Option.MAKE_REQUEST:
-                    MakeRequest();
                     return ConsoleMode.CONTINUE;
                 case Option.BACK:
                     return ConsoleMode.QUIT;
@@ -111,16 +106,6 @@ namespace SALab2._1.ConsoleMenu.PlaceMenu.ManagerMenu
                 uniqueName,
                 location)
                 .ToViewModel();
-        }
-
-        private void MakeRequest()
-        {
-            var place = UsePreviousPlaceOrGetAnother();
-            var content = ReadDataInput("Request: ");
-
-            UserService.MakeRequest(place.ToDTO(),
-                User.ToDTO(),
-                content);
         }
     }
 }

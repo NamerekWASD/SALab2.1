@@ -17,6 +17,7 @@ namespace Mapper.LogInMappers
                 Id = data.Id,
                 Password = data.Password,
                 Email = data.Email,
+                UserId = data.UserId
             };
         }
     }

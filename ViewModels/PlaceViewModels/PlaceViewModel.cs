@@ -19,7 +19,6 @@ namespace ViewModels.PlaceViewModels
 
 
         public ICollection<CommentViewModel>? Comments { get; set; } = new List<CommentViewModel>();
-        public ICollection<RequestViewModel>? Requests { get; set; } = new List<RequestViewModel>();
         public ICollection<FileBaseViewModel>? Media { get; set; } = new List<FileBaseViewModel>();
         public override string ToString()
         {
@@ -53,31 +52,6 @@ namespace ViewModels.PlaceViewModels
                 comments += "\n " + c;
             }
             return comments;
-        }
-        public string GetQuestions()
-        {
-            string requests = string.Empty;
-            if (Requests is null || Requests.Count is 0)
-            {
-                return requests;
-            }
-            foreach (var q in Requests)
-            {
-                requests += "\n" + q;
-            }
-            return requests;
-        }
-        public class RequestViewModel
-        {
-            public int Id { get; set; }
-            public string Content { get; set; }
-            public PlaceViewModel PlaceWhereLeft { get; set; }
-            public UserViewModel UserWhoLeft { get; set; }
-
-            public override string ToString()
-            {
-                return $"  {UserWhoLeft.Name}: {Content}";
-            }
         }
     }
 }

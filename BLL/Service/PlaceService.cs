@@ -1,11 +1,12 @@
 ﻿using BLL.Controllers;
+using BLL.Service.Base;
 using DTO.CommentDTOs;
 using DTO.PlaceDTOs;
 using DTO.UserDTOs;
 using Mappers.GeneralMappers;
 using Models.MediaModel.MatchingToPlace;
 
-namespace SALab2._1.Service.Base
+namespace BLL.Service
 {
     public class PlaceService : IPlaceService
     {
@@ -25,7 +26,9 @@ namespace SALab2._1.Service.Base
 
         public IEnumerable<PlaceDTO> GetPlacesByKeyWord(string keyWord)
         {
-            var placesFound = from p in PlaceController.Index().ToList().ToDTO()
+            var placesFound = from p in PlaceController.Index()
+                              .ToList()
+                              .ToDTO()
                               where p.Name.Contains(keyWord)
                               select p;
             if (placesFound is null || placesFound.Count() == 0)

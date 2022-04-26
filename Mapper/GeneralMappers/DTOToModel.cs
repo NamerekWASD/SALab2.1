@@ -9,7 +9,7 @@ using Models.UserModels;
 
 namespace Mappers.GeneralMappers
 {
-    public static class BLLtoDAL
+    public static class DTOToModel
     {
         public static PlaceModel ToModel(this PlaceDTO placeDTO)
         {
@@ -27,10 +27,11 @@ namespace Mappers.GeneralMappers
         public static ICollection<PlaceModel> ToModel(this ICollection<PlaceDTO> placeDTOs)
         {
             ICollection<PlaceModel> placesModel = new List<PlaceModel>();
-            foreach (var place in placeDTOs)
-            {
-                placesModel.Add(place.ToModel());
-            }
+            if (placeDTOs != null)
+                foreach (var place in placeDTOs)
+                {
+                    placesModel.Add(place.ToModel());
+                }
             return placesModel;
         }
         public static CommentModel ToModel(this CommentDTO commentDTO)
@@ -48,10 +49,11 @@ namespace Mappers.GeneralMappers
         public static ICollection<CommentModel> ToModel(this ICollection<CommentDTO> commentsDTO)
         {
             ICollection<CommentModel> commentsModel = new List<CommentModel>();
-            foreach (var comment in commentsDTO)
-            {
-                commentsModel.Add(comment.ToModel());
-            }
+            if (commentsDTO != null)
+                foreach (var comment in commentsDTO)
+                {
+                    commentsModel.Add(comment.ToModel());
+                }
             return commentsModel;
         }
 
@@ -68,10 +70,11 @@ namespace Mappers.GeneralMappers
         public static ICollection<FileContainerModel> ToModel(this ICollection<FileContainerDTO> filesDTO)
         {
             ICollection<FileContainerModel> filesModel = new List<FileContainerModel>();
-            foreach (var file in filesDTO)
-            {
-                filesModel.Add(file.ToModel());
-            }
+            if (filesDTO != null)
+                foreach (var file in filesDTO)
+                {
+                    filesModel.Add(file.ToModel());
+                }
             return filesModel;
         }
         public static UserModel ToModel(this UserDTO userDTO)
@@ -81,10 +84,20 @@ namespace Mappers.GeneralMappers
                 Id = userDTO.Id,
                 Name = userDTO.Name,
                 Surname = userDTO.Surname,
-                Status = userDTO.Status,
                 VisitedPlaces = userDTO.VisitedPlaces.ToModel(),
                 LeftComments = userDTO.LeftComments.ToModel(),
                 FilesAttached = userDTO.FilesAttached.ToModel(),
+                AuthentificationData = userDTO.AuthentificationData.ToModel()
+            };
+        }
+        public static LoginModel ToModel(this LoginDTO data)
+        {
+            return new()
+            {
+                Id = data.Id,
+                Email = data.Email,
+                Password = data.Password,
+                UserId = data.UserId,
             };
         }
     }

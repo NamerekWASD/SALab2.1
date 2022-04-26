@@ -12,59 +12,36 @@ namespace BLL.Controllers
         {
             unitOfWork = new UnitOfWork();
         }
-
-        public UserModel Get(int id)
-        {
-            return unitOfWork.Users.Get(id);
-        }
-
+        [Authorize]
         public void Create(UserModel u)
         {
-            unitOfWork.Users.Create(u);
+            u.AuthentificationData.User = u;
+            unitOfWork.Usersdata.Create(u.AuthentificationData);
             unitOfWork.Save();
         }
 
         public void Edit(UserModel u)
         {
-            unitOfWork.Users.Update(u);
+            unitOfWork.Usersdata.Update(u.AuthentificationData);
             unitOfWork.Save();
         }
 
         public void Delete(UserModel u)
         {
-            unitOfWork.Users.Delete(u);
+            unitOfWork.Usersdata.Delete(u.AuthentificationData);
             unitOfWork.Save();
         }
 
 
-        [Authorize]
-        public UserModel SignIn(string email, string password)
-        {
-            var user = new UserModel()
-            {
-                AuthentificationData = new()
-                {
-                    Email = email,
-                    Password = password,
-                }
-            };
-            Create(user);
-
-            return user;
-        }
 
         [Authorize]
         public UserModel LogIn(string email, string password)
         {
-            var user = from u in unitOfWork.Users.GetAll()
-                       where u.AuthentificationData.Email == email
-                       && u.AuthentificationData.Password == password
-                       select u;
-            if (user.Any())
+            try
             {
-                return user.FirstOrDefault();
+                return unitOfWork.Usersdata.GetAll().Single(x => x.Email == email && x.Password == password).User;
             }
-            else
+            catch (Exception e)
             {
                 throw new IncorrectEmailOrPasswordException("Wrong email or password!");
             }

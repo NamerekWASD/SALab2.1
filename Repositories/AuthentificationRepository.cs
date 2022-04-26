@@ -6,47 +6,47 @@ using SALab2._1.Exceptions;
 
 namespace Repositories
 {
-    public class UserRepository : IRepository<UserModel>
+    public class AuthentificationRepository : IRepository<LoginModel>
     {
 
         private PlaceContext db;
-        public UserRepository(PlaceContext db)
+        public AuthentificationRepository(PlaceContext db)
         {
             this.db = db;
         }
 
-        public void Create(UserModel user)
+        public void Create(LoginModel data)
         {
-            if (CheckEmailExistence(user.AuthentificationData.Email))
+            if (CheckEmailExistence(data.Email))
             {
                 throw new ExistenceEmailException("Email already exists!");
             }
 
-            db.Users.Add(user);
+            db.LoginData.Add(data);
         }
 
-        public UserModel Get(int id)
+        public LoginModel Get(int id)
         {
-            return db.Users.Single(x => x.Id == id);
+            return db.LoginData.Single(x => x.Id == id);
         }
 
-        public IEnumerable<UserModel> GetAll()
+        public IEnumerable<LoginModel> GetAll()
         {
-            return db.Users;
+            return db.LoginData;
         }
 
-        public void Delete(UserModel user)
+        public void Delete(LoginModel data)
         {
-            db.Users.Remove(user);
+            db.LoginData.Remove(data);
         }
 
-        public void Update(UserModel newUser)
+        public void Update(LoginModel data)
         {
-            if (CheckEmailExistence(newUser.AuthentificationData.Email))
+            if (CheckEmailExistence(data.Email))
             {
                 throw new ExistenceEmailException("Email already exists!");
             }
-            db.Entry(newUser).State = EntityState.Modified;
+            db.Entry(data).State = EntityState.Modified;
         }
         /// <summary>
         /// If email exist, return true, else false

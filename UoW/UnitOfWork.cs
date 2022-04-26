@@ -7,7 +7,7 @@ namespace UoW
     {
         private PlaceContext db = new();
         private PlaceRepository PlaceRepository;
-        private UserRepository UserRepository;
+        private AuthentificationRepository UserRepository;
 
         public PlaceRepository Places
         {
@@ -19,12 +19,12 @@ namespace UoW
             }
         }
 
-        public UserRepository Users
+        public AuthentificationRepository Usersdata
         {
             get
             {
                 if (UserRepository == null)
-                    UserRepository = new UserRepository(db);
+                    UserRepository = new AuthentificationRepository(db);
                 return UserRepository;
             }
         }

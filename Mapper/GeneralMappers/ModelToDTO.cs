@@ -1,22 +1,17 @@
 ﻿using DTO.CommentDTOs;
 using DTO.PlaceDTOs;
 using DTO.UserDTOs;
-using Models.MediaModel.Base;
+using Models.CommentModels;
 using Models.MediaModel.MatchingToPlace;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ViewModels.CommentViewModels;
-using ViewModels.PlaceViewModels;
-using ViewModels.UserViewModels;
+using Models.MediaModels;
+using Models.PlaceModels;
+using Models.UserModels;
 
 namespace Mappers.GeneralMappers
 {
-    public static class PLtoBLL
+    public static class ModelToDTO
     {
-        public static PlaceDTO ToDTO(this PlaceViewModel place)
+        public static PlaceDTO ToDTO(this PlaceModel place)
         {
             return new()
             {
@@ -29,16 +24,17 @@ namespace Mappers.GeneralMappers
                 Media = place.Media.ToDTO(),
             };
         }
-        public static ICollection<PlaceDTO> ToDTO(this ICollection<PlaceViewModel> places)
+        public static ICollection<PlaceDTO> ToDTO(this ICollection<PlaceModel> places)
         {
             ICollection<PlaceDTO> placeDTOs = new List<PlaceDTO>();
-            foreach (var place in places)
-            {
-                placeDTOs.Add(place.ToDTO());
-            }
+            if (places != null)
+                foreach (var place in places)
+                {
+                    placeDTOs.Add(place.ToDTO());
+                }
             return placeDTOs;
         }
-        public static CommentDTO ToDTO(this CommentViewModel comment)
+        public static CommentDTO ToDTO(this CommentModel comment)
         {
             return new()
             {
@@ -50,17 +46,18 @@ namespace Mappers.GeneralMappers
             };
         }
 
-        public static ICollection<CommentDTO> ToDTO(this ICollection<CommentViewModel> comments)
+        public static ICollection<CommentDTO> ToDTO(this ICollection<CommentModel> comments)
         {
             ICollection<CommentDTO> commentDTOs = new List<CommentDTO>();
-            foreach (var comment in comments)
-            {
-                commentDTOs.Add(comment.ToDTO());
-            }
+            if (comments != null)
+                foreach (var comment in comments)
+                {
+                    commentDTOs.Add(comment.ToDTO());
+                }
             return commentDTOs;
         }
 
-        public static FileContainerDTO ToDTO(this FileBaseViewModel file)
+        public static FileContainerDTO ToDTO(this FileContainerModel file)
         {
             return new()
             {
@@ -70,22 +67,24 @@ namespace Mappers.GeneralMappers
                 PlaceWhereAttached = file.PlaceWhereAttached.ToDTO(),
             };
         }
-        public static ICollection<FileContainerDTO> ToDTO(this ICollection<FileBaseViewModel> files)
+        public static ICollection<FileContainerDTO> ToDTO(this ICollection<FileContainerModel> files)
         {
             ICollection<FileContainerDTO> fileDTOs = new List<FileContainerDTO>();
-            foreach (var file in files)
-            {
-                fileDTOs.Add(file.ToDTO());
-            }
+            if (files != null)
+                foreach (var file in files)
+                {
+                    fileDTOs.Add(file.ToDTO());
+                }
             return fileDTOs;
         }
-        public static UserDTO ToDTO(this UserViewModel user)
+        public static UserDTO ToDTO(this UserModel user)
         {
             return new()
             {
                 Id = user.Id,
                 Name = user.Name,
                 Surname = user.Surname,
+                Status = user.Status,
                 VisitedPlaces = user.VisitedPlaces.ToDTO(),
                 LeftComments = user.LeftComments.ToDTO(),
                 FilesAttached = user.FilesAttached.ToDTO(),

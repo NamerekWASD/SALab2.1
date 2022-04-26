@@ -1,8 +1,7 @@
-﻿
-using DTO.PlaceDTOs;
+﻿using DTO.PlaceDTOs;
 using DTO.UserDTOs;
 
-namespace SALab2._1.Service
+namespace BLL.Service.Base
 {
     public interface IUserService
     {
@@ -10,6 +9,5 @@ namespace SALab2._1.Service
         UserDTO SignIn(string name, string surname, string email, string password);
         void UpdateUser(UserDTO user);
         void DeleteUser(UserDTO user);
-        void MakeRequest(PlaceDTO placeWhereLeft, UserDTO userWhoLeft, string content);
     }
 }

@@ -10,7 +10,7 @@ namespace SALab2._1.ConsoleMenu.Enter
 {
     internal class PersonalAccountMenu : MenuBase
     {
-        public UserViewModel User { get; set; } = new ();
+        public UserViewModel User { get; set; }
 
         private static string[] options =
        {
@@ -30,7 +30,7 @@ namespace SALab2._1.ConsoleMenu.Enter
         {
             User = UserService.LogIn(email, pass).ToViewModel();
 
-            if (User.AuthentificationData.IsManager)
+            if (User.Status == 1)
             {
                 placeMenu = new PlaceMenuManager();
             }

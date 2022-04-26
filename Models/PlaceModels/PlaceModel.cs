@@ -13,21 +13,7 @@ namespace Models.PlaceModels
         public string Location { get; set; }
 
 
-        public ICollection<CommentModel>? Comments { get; set; }
-        public ICollection<Request>? Requests { get; set; }
-        public ICollection<FileContainerModel>? Media { get; set; }
-    }
-
-    public class Request
-    {
-        public int Id { get; set; }
-        public string Content { get; set; }
-        public PlaceModel PlaceWhereLeft { get; set; }
-        public UserModel UserWhoLeft { get; set; }
-
-        public override string ToString()
-        {
-            return $"  {UserWhoLeft.Name}: {Content}";
-        }
+        public virtual ICollection<CommentModel>? Comments { get; set; }
+        public virtual ICollection<FileContainerModel>? Media { get; set; }
     }
 }

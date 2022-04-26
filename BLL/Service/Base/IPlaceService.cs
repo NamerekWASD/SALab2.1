@@ -2,7 +2,7 @@
 using DTO.UserDTOs;
 using Models.MediaModel.MatchingToPlace;
 
-namespace SALab2._1.Service
+namespace BLL.Service.Base
 {
     public interface IPlaceService
     {

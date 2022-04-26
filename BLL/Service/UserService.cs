@@ -1,10 +1,11 @@
 ﻿using BLL.Controllers;
+using BLL.Service.Base;
 using DTO.PlaceDTOs;
 using DTO.UserDTOs;
 using Mappers.GeneralMappers;
 using static DTO.PlaceDTOs.PlaceDTO;
 
-namespace SALab2._1.Service.Base
+namespace BLL.Service
 {
     public class UserService : IUserService
     {
@@ -36,18 +37,6 @@ namespace SALab2._1.Service.Base
         public void DeleteUser(UserDTO user)
         {
             UserController.Delete(user.ToModel());
-        }
-        public void MakeRequest(PlaceDTO placeWhereLeft, UserDTO userWhoLeft, string content)
-        {
-            var question = new RequestDTO()
-            {
-                Content = content,
-                UserWhoLeft = userWhoLeft,
-                PlaceWhereLeft = placeWhereLeft
-            };
-            placeWhereLeft.Requests.Add(question);
-
-            UserController.Edit(userWhoLeft.ToModel());
         }
     }
 }

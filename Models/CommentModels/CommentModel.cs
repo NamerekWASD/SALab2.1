@@ -8,13 +8,9 @@ namespace Models.CommentModels
         public int Id { get; set; }
         public string Content { get; set; }
         public DateTime Created { get; set; }
-
-        public override string ToString()
-        {
-            return $"{UserWhoLeft.Name}: {Content}" +
-                $"\n Created {Created}";
-        }
-        public UserModel UserWhoLeft { get; set; }
-        public PlaceModel PlaceWhereLeft { get; set; }
+        public int UserWhoLeftId { get; set; }
+        public virtual UserModel UserWhoLeft { get; set; }
+        public int PlaceWhereLeftId { get; set; }
+        public virtual PlaceModel PlaceWhereLeft { get; set; }
     }
 }
