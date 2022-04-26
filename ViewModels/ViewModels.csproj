@@ -7,8 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DAL\DAL.csproj" />
-    <ProjectReference Include="..\UoW\UoW.csproj" />
+    <PackageReference Include="Xabe.FFmpeg" Version="5.1.0" />
   </ItemGroup>
 
 </Project>

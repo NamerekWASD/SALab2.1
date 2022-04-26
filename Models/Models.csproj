@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="MediaModels\Base\**" />
+    <Compile Remove="MediaModels\MatchingToPlace\**" />
+    <Compile Remove="Models\**" />
+    <EmbeddedResource Remove="MediaModels\Base\**" />
+    <EmbeddedResource Remove="MediaModels\MatchingToPlace\**" />
+    <EmbeddedResource Remove="Models\**" />
+    <None Remove="MediaModels\Base\**" />
+    <None Remove="MediaModels\MatchingToPlace\**" />
+    <None Remove="Models\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Xabe.FFmpeg" Version="5.1.0" />
+  </ItemGroup>
+
+</Project>

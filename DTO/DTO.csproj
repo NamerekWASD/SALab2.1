@@ -7,8 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DAL\DAL.csproj" />
-    <ProjectReference Include="..\UoW\UoW.csproj" />
+    <Compile Remove="MediaDTOs\Base\**" />
+    <EmbeddedResource Remove="MediaDTOs\Base\**" />
+    <None Remove="MediaDTOs\Base\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Xabe.FFmpeg" Version="5.1.0" />
   </ItemGroup>
 
 </Project>

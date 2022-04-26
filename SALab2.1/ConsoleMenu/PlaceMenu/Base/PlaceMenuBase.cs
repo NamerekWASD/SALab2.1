@@ -1,15 +1,16 @@
-﻿using DAL.Models.MediaEntity;
-using DAL.Models.MediaEntity.Base;
-using DAL.Models.PersonEntity;
-using DAL.Models.PlaceEntity;
+﻿using Mappers.GeneralMappers;
+using Models.MediaModel.Base;
 using SALab2._1.ConsoleMenu.Base;
+using ViewModels.MediaViewModels;
+using ViewModels.PlaceViewModels;
+using ViewModels.UserViewModels;
 
 namespace SALab2._1.ConsoleMenu.PlaceMenu.Base
 {
     internal class PlaceMenuBase : MenuBase
     {
-        public User User { get; set; } = new User();
-        public Place Place { private get; set; } = new();
+        public UserViewModel User { get; set; } = new ();
+        public PlaceViewModel Place { private get; set; } = new();
         public PlaceMenuBase(string[] options)
             : base(options)
         {
@@ -21,8 +22,8 @@ namespace SALab2._1.ConsoleMenu.PlaceMenu.Base
 
         protected void AttachFile()
         {
-            Place place = UsePreviousPlaceOrGetAnother();
-            FileBase file = null;
+            PlaceViewModel place = UsePreviousPlaceOrGetAnother();
+            FileBaseViewModel file = null;
             Console.WriteLine("What attach?" +
                 "\n1. Video" +
                 "\n2. Photo");
@@ -33,14 +34,20 @@ namespace SALab2._1.ConsoleMenu.PlaceMenu.Base
                     case 1:
                         try
                         {
-                            file = new Video(ReadDataInput("Path: "));
+                            file = new VideoViewModel()
+                            {
+                                Path = ReadDataInput("Path: "),
+                            };
                         }
                         catch (FileNotFoundException ex) { Console.WriteLine(ex.Message); }
                         break;
                     case 2:
                         try
                         {
-                            file = new Photo(ReadDataInput("Path: "));
+                            file = new PhotoViewModel()
+                            {
+                                Path = ReadDataInput("Path: "),
+                            };
                         }
                         catch (FileNotFoundException ex) { Console.WriteLine(ex.Message); }
 
@@ -51,33 +58,39 @@ namespace SALab2._1.ConsoleMenu.PlaceMenu.Base
                 }
             }
 
-            PlaceService.AttachFile(place, User, file);
+            PlaceService.AttachFile(place.ToDTO(),
+                User.ToDTO(),
+                file.ToDTO());
         }
 
         protected void LeaveComment()
         {
             var place = UsePreviousPlaceOrGetAnother();
             var content = ReadDataInput("");
-            PlaceService.AddComment(place, User, content);
+            PlaceService.AddComment(place.ToDTO(),
+                User.ToDTO(),
+                content);
         }
 
         protected void ShowPlaceInfo()
         {
             var place = UsePreviousPlaceOrGetAnother();
-            Console.WriteLine("Place info: ");
+            Console.WriteLine("PlaceModel info: ");
             Console.WriteLine(place);
             Console.WriteLine(place.GetMedia());
             Console.WriteLine(place.GetComments());
         }
-        private Place FindByKeyWord()
+        private PlaceViewModel FindByKeyWord()
         {
-            List<Place> placesFound = new List<Place>();
+            List<PlaceViewModel> placesFound = new();
             do
             {
                 string keyword = ReadDataInput("Key word: ");
                 try
                 {
-                    placesFound = PlaceService.GetPlacesByKeyWord(keyword);
+                    placesFound = PlaceService.
+                        GetPlacesByKeyWord(keyword).
+                        ToList().ToViewModel().ToList();
                     break;
                 }
                 catch (Exception ex)
@@ -87,11 +100,11 @@ namespace SALab2._1.ConsoleMenu.PlaceMenu.Base
             } while (!Equals(Console.ReadKey(), 'b'));
             for (int i = 0; i < placesFound.Count; i++)
             {
-                Place? p = placesFound[i];
+                PlaceViewModel? p = placesFound[i];
                 Console.WriteLine($"{i + 1}. {p.Name}");
             }
             Console.Write("Chose place via id: ");
-            Place place = new();
+            PlaceViewModel place = new();
             while (true)
             {
                 try
@@ -104,7 +117,7 @@ namespace SALab2._1.ConsoleMenu.PlaceMenu.Base
             }
             return place;
         }
-        protected Place UsePreviousPlaceOrGetAnother()
+        protected PlaceViewModel UsePreviousPlaceOrGetAnother()
         {
             if (Place.Name is null || Place.Name.Length is 0)
             {

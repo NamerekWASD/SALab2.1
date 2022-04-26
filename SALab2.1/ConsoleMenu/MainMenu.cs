@@ -1,7 +1,8 @@
-﻿using DAL.Models.PersonEntity;
-using SALab2._1.ConsoleMenu.Base;
+﻿using SALab2._1.ConsoleMenu.Base;
 using SALab2._1.ConsoleMenu.Enter;
 using SALab2._1.Exceptions;
+using ViewModels.UserViewModels;
+using static ViewModels.UserViewModels.LoginViewModel;
 
 namespace SALab2._1.ConsoleMenu
 {
@@ -90,7 +91,7 @@ namespace SALab2._1.ConsoleMenu
             }
             try
             {
-                UserService.SignIn(name, surname, email, password, role);
+                UserService.SignIn(name, surname, email, password);
             }
             catch (IncorrectEmailOrPasswordException ex)
             {

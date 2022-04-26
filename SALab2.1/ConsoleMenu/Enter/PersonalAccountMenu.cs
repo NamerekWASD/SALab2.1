@@ -1,15 +1,16 @@
-﻿using DAL.Models.PersonEntity;
-using DAL.Models.PlaceEntity;
+﻿using Mappers.GeneralMappers;
 using SALab2._1.ConsoleMenu.Base;
 using SALab2._1.ConsoleMenu.PlaceMenu;
 using SALab2._1.ConsoleMenu.PlaceMenu.Base;
 using SALab2._1.ConsoleMenu.PlaceMenu.ManagerMenu;
+using ViewModels.PlaceViewModels;
+using ViewModels.UserViewModels;
 
 namespace SALab2._1.ConsoleMenu.Enter
 {
     internal class PersonalAccountMenu : MenuBase
     {
-        public User User { get; set; } = new User();
+        public UserViewModel User { get; set; } = new ();
 
         private static string[] options =
        {
@@ -27,9 +28,9 @@ namespace SALab2._1.ConsoleMenu.Enter
         public PersonalAccountMenu(string email, string pass)
             : base(options)
         {
-            User = UserService.LogIn(email, pass);
+            User = UserService.LogIn(email, pass).ToViewModel();
 
-            if (User.IsManager)
+            if (User.AuthentificationData.IsManager)
             {
                 placeMenu = new PlaceMenuManager();
             }
@@ -61,11 +62,14 @@ namespace SALab2._1.ConsoleMenu.Enter
         }
         private void AddVisitedPlace()
         {
-            string name = ReadDataInput("Place name: ", Pattern.NAME);
-            List<Place> placesFound = new();
+            string name = ReadDataInput("PlaceModel name: ", Pattern.NAME);
+            List<PlaceViewModel> placesFound = new();
             try
             {
-                placesFound = PlaceService.GetPlacesByKeyWord(name);
+                placesFound = PlaceService.GetPlacesByKeyWord(name)
+                    .ToList()
+                    .ToViewModel()
+                    .ToList();
             }
             catch (Exception ex)
             {
@@ -75,11 +79,10 @@ namespace SALab2._1.ConsoleMenu.Enter
 
             for (int i = 0; i < placesFound.Count; i++)
             {
-                Place p = placesFound[i];
-                Console.WriteLine($"{i + 1}. {p}");
+                Console.WriteLine($"{i + 1}. {placesFound[i].Name}");
             }
             Console.Write("Chose place via id: ");
-            Place place = new();
+            PlaceViewModel place = new();
             while (true)
             {
                 try
@@ -91,7 +94,7 @@ namespace SALab2._1.ConsoleMenu.Enter
                 catch (Exception) { }
             }
             User.VisitedPlaces.Add(place);
-            UserService.UpdateUser(User);
+            UserService.UpdateUser(User.ToDTO());
         }
 
         private void GoToPlaceMenu()

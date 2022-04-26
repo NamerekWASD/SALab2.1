@@ -10,8 +10,11 @@
 
   <ItemGroup>
     <Compile Remove="Models\MediaEntity\Base\Components\**" />
+    <Compile Remove="UnitsOfWork\**" />
     <EmbeddedResource Remove="Models\MediaEntity\Base\Components\**" />
+    <EmbeddedResource Remove="UnitsOfWork\**" />
     <None Remove="Models\MediaEntity\Base\Components\**" />
+    <None Remove="UnitsOfWork\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -30,6 +33,12 @@
     <PackageReference Include="Mvc2Futures" Version="2.0.50217" />
     <PackageReference Include="Portable.BouncyCastle" Version="1.9.0" />
     <PackageReference Include="Xabe.FFmpeg" Version="5.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Exceptions\Exceptions.csproj" />
+    <ProjectReference Include="..\Mapper\Mappers.csproj" />
+    <ProjectReference Include="..\Models\Models.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,4 +1,5 @@
-﻿using SALab2._1.ConsoleMenu.PlaceMenu.Base;
+﻿using Mappers.GeneralMappers;
+using SALab2._1.ConsoleMenu.PlaceMenu.Base;
 
 namespace SALab2._1.ConsoleMenu.PlaceMenu.ManagerMenu
 {
@@ -58,7 +59,7 @@ namespace SALab2._1.ConsoleMenu.PlaceMenu.ManagerMenu
             Console.WriteLine("Are you sure?");
             if (ChoiceToBool())
             {
-                PlaceService.DeletePlace(place);
+                PlaceService.DeletePlace(place.ToDTO());
             }
             else
             {
@@ -90,7 +91,8 @@ namespace SALab2._1.ConsoleMenu.PlaceMenu.ManagerMenu
             {
                 place.Location = ReadDataInput("Location: ", Pattern.NAME);
             }
-            Place = PlaceService.EditPlace(place);
+            Place = PlaceService.EditPlace(place.ToDTO())
+                .ToViewModel();
         }
 
         private void AddPlace()
@@ -104,7 +106,11 @@ namespace SALab2._1.ConsoleMenu.PlaceMenu.ManagerMenu
 
             string location = ReadDataInput("Location: ", Pattern.NAME);
 
-            Place = PlaceService.AddPlace(name, category, uniqueName, location);
+            Place = PlaceService.AddPlace(name,
+                category,
+                uniqueName,
+                location)
+                .ToViewModel();
         }
 
         private void MakeRequest()
@@ -112,7 +118,9 @@ namespace SALab2._1.ConsoleMenu.PlaceMenu.ManagerMenu
             var place = UsePreviousPlaceOrGetAnother();
             var content = ReadDataInput("Request: ");
 
-            UserService.MakeRequest(place, User, content);
+            UserService.MakeRequest(place.ToDTO(),
+                User.ToDTO(),
+                content);
         }
     }
 }
