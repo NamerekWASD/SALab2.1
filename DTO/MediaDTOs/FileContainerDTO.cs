@@ -9,7 +9,9 @@ namespace Models.MediaModel.MatchingToPlace
         public int Id { get; set; }
         private string _path;
         public string Path { get { return _path; } set { _path = value; } }
-        public UserDTO UserWhoAttached { get; set; }
+        public int UserWhoAttachedId { get; set; }
+        public UserProfileDTO UserWhoAttached { get; set; }
+        public int PlaceWhereAttachedId { get; set; }
         public PlaceDTO PlaceWhereAttached { get; set; }
     }
 }

@@ -12,8 +12,8 @@ namespace Models.PlaceModels
         public string UniqueName { get; set; }
         public string Location { get; set; }
 
-
-        public virtual ICollection<CommentModel>? Comments { get; set; }
-        public virtual ICollection<FileContainerModel>? Media { get; set; }
+        public virtual List<UserProfileModel>? UsersWhoVisited { get; set; }
+        public virtual List<CommentModel>? Comments { get; set; }
+        public virtual List<FileContainerModel>? Media { get; set; }
     }
 }

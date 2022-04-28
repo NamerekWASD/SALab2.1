@@ -1,5 +1,5 @@
-﻿using Mappers.GeneralMappers;
-using SALab2._1.ConsoleMenu.PlaceMenu.Base;
+﻿using SALab2._1.ConsoleMenu.PlaceMenu.Base;
+using Services.GeneralMappers;
 
 namespace SALab2._1.ConsoleMenu.PlaceMenu.ManagerMenu
 {

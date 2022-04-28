@@ -12,34 +12,29 @@ namespace BLL.Controllers
         {
             unitOfWork = new UnitOfWork();
         }
-        [Authorize]
+
         public void Create(UserModel u)
         {
-            u.AuthentificationData.User = u;
-            unitOfWork.Usersdata.Create(u.AuthentificationData);
+            unitOfWork.Usersdata.Create(u);
             unitOfWork.Save();
         }
 
-        public void Edit(UserModel u)
+        public void Edit(UserProfileModel u)
         {
-            unitOfWork.Usersdata.Update(u.AuthentificationData);
+            unitOfWork.Usersdata.Update(u.UserData);
             unitOfWork.Save();
         }
 
-        public void Delete(UserModel u)
+        public void Delete(UserProfileModel u)
         {
-            unitOfWork.Usersdata.Delete(u.AuthentificationData);
+            unitOfWork.Usersdata.Delete(u.UserData);
             unitOfWork.Save();
         }
-
-
-
-        [Authorize]
-        public UserModel LogIn(string email, string password)
+        public UserProfileModel LogIn(string email, string password)
         {
             try
             {
-                return unitOfWork.Usersdata.GetAll().Single(x => x.Email == email && x.Password == password).User;
+                return unitOfWork.Usersdata.GetAll().Single(x => x.Email == email && x.Password == password).UserProfile;
             }
             catch (Exception e)
             {

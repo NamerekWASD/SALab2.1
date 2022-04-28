@@ -26,7 +26,7 @@ namespace Models.MediaModel.Base
         public string Name => new FileInfo(Path).Name;
         public string Format => new FileInfo(Path).Extension;
         public string Size => (double)(new FileInfo(Path).Length * 1024 * 1024 / 1048576) + "Mb";
-        public UserViewModel UserWhoAttached;
+        public UserProfileViewModel UserWhoAttached;
         public PlaceViewModel PlaceWhereAttached;
         public override string ToString()
         {

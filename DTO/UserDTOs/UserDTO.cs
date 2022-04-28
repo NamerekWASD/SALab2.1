@@ -1,19 +1,20 @@
-﻿using DTO.CommentDTOs;
-using DTO.PlaceDTOs;
-using Models.MediaModel.MatchingToPlace;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace DTO.UserDTOs
 {
-
-    public sealed class UserDTO
+    public class UserDTO
     {
         public int Id { get; set; }
-        public string Name { get; set; }
-        public string Surname { get; set; }
-        public ICollection<FileContainerDTO> FilesAttached { get; set; }
-        public ICollection<CommentDTO>? LeftComments { get; set; }
-        public ICollection<PlaceDTO>? VisitedPlaces { get; set; }
-        public LoginDTO AuthentificationData { get; set; }
+        public string Email { get; set; }
+        public string Password { get; set; }
 
+        public bool IsManager { get; set; }
+        public string Status => IsManager ? "Manager" : "User" ;
+        public int UserId { get; set; }
+        public UserProfileDTO UserProfile { get; set; }
     }
 }

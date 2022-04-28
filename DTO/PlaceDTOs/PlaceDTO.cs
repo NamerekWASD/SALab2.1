@@ -12,7 +12,7 @@ namespace DTO.PlaceDTOs
         public string UniqueName { get; set; }
         public string Location { get; set; }
 
-        public ICollection<CommentDTO>? Comments { get; set; } = new List<CommentDTO>();
-        public ICollection<FileContainerDTO>? Media { get; set; } = new List<FileContainerDTO>();
+        public List<CommentDTO>? Comments { get; set; }
+        public List<FileContainerDTO>? Media { get; set; }
     }
 }

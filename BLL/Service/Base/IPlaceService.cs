@@ -10,7 +10,7 @@ namespace BLL.Service.Base
         void DeletePlace(PlaceDTO place);
         PlaceDTO AddPlace(string name, string category, string uniqueName, string location);
         PlaceDTO EditPlace(PlaceDTO place);
-        PlaceDTO AttachFile(PlaceDTO place, UserDTO userWhoAttach, FileContainerDTO fileBase);
-        PlaceDTO AddComment(PlaceDTO placeWhereLeft, UserDTO userWhoLeft, string content);
+        PlaceDTO AttachFile(PlaceDTO place, UserProfileDTO userWhoAttach, FileContainerDTO fileBase);
+        PlaceDTO AddComment(PlaceDTO placeWhereLeft, UserProfileDTO userWhoLeft, string content);
     }
 }

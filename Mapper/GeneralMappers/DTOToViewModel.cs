@@ -3,6 +3,7 @@ using DTO.PlaceDTOs;
 using DTO.UserDTOs;
 using Models.MediaModel.Base;
 using Models.MediaModel.MatchingToPlace;
+using Services.GeneralMappers;
 using ViewModels.CommentViewModels;
 using ViewModels.PlaceViewModels;
 using ViewModels.UserViewModels;
@@ -24,10 +25,10 @@ namespace Mappers.GeneralMappers
                 Media = placeDTO.Media.ToViewModel(),
             };
         }
-        public static ICollection<PlaceViewModel> ToViewModel(this ICollection<PlaceDTO> placesDTO)
+        public static List<PlaceViewModel> ToViewModel(this List<PlaceDTO> placesDTO)
         {
-            ICollection<PlaceViewModel> placesViewModel = new List<PlaceViewModel>();
-            if (placesDTO != null)
+            List<PlaceViewModel> placesViewModel = new();
+            if (placesDTO != null && placesDTO.Count != 0)
                 foreach (var place in placesDTO)
                 {
                     placesViewModel.Add(place.ToViewModel());
@@ -45,10 +46,10 @@ namespace Mappers.GeneralMappers
                 PlaceWhereLeft = commentDTO.PlaceWhereLeft.ToViewModel(),
             };
         }
-        public static ICollection<CommentViewModel> ToViewModel(this ICollection<CommentDTO> commentsDTO)
+        public static List<CommentViewModel> ToViewModel(this List<CommentDTO> commentsDTO)
         {
-            ICollection<CommentViewModel> commentsViewModel = new List<CommentViewModel>();
-            if (commentsDTO != null)
+            List<CommentViewModel> commentsViewModel = new ();
+            if (commentsDTO != null && commentsDTO.Count != 0)
                 foreach (var comment in commentsDTO)
                 {
                     commentsViewModel.Add(comment.ToViewModel());
@@ -66,17 +67,17 @@ namespace Mappers.GeneralMappers
                 PlaceWhereAttached = FileDTO.PlaceWhereAttached.ToViewModel(),
             };
         }
-        public static ICollection<FileBaseViewModel> ToViewModel(this ICollection<FileContainerDTO> filesDTO)
+        public static List<FileBaseViewModel> ToViewModel(this List<FileContainerDTO> filesDTO)
         {
-            ICollection<FileBaseViewModel> filesModel = new List<FileBaseViewModel>();
-            if (filesDTO != null)
+            List<FileBaseViewModel> filesModel = new List<FileBaseViewModel>();
+            if (filesDTO != null && filesDTO.Count != 0)
                 foreach (var file in filesDTO)
                 {
                     filesModel.Add(file.ToViewModel());
                 }
             return filesModel;
         }
-        public static UserViewModel ToViewModel(this UserDTO userDTO)
+        public static UserProfileViewModel ToViewModel(this UserProfileDTO userDTO)
         {
             return new()
             {

@@ -6,41 +6,41 @@ using SALab2._1.Exceptions;
 
 namespace Repositories
 {
-    public class AuthentificationRepository : IRepository<LoginModel>
+    public class UserRepository : IRepository<UserModel>
     {
 
         private PlaceContext db;
-        public AuthentificationRepository(PlaceContext db)
+        public UserRepository(PlaceContext db)
         {
             this.db = db;
         }
 
-        public void Create(LoginModel data)
+        public void Create(UserModel data)
         {
             if (CheckEmailExistence(data.Email))
             {
                 throw new ExistenceEmailException("Email already exists!");
             }
 
-            db.LoginData.Add(data);
+            db.Users.Add(data);
         }
 
-        public LoginModel Get(int id)
+        public UserModel Get(int id)
         {
-            return db.LoginData.Single(x => x.Id == id);
+            return db.Users.Single(x => x.Id == id);
         }
 
-        public IEnumerable<LoginModel> GetAll()
+        public IEnumerable<UserModel> GetAll()
         {
-            return db.LoginData;
+            return db.Users;
         }
 
-        public void Delete(LoginModel data)
+        public void Delete(UserModel data)
         {
-            db.LoginData.Remove(data);
+            db.Users.Remove(data);
         }
 
-        public void Update(LoginModel data)
+        public void Update(UserModel data)
         {
             if (CheckEmailExistence(data.Email))
             {
@@ -56,8 +56,8 @@ namespace Repositories
         /// </param>
         private bool CheckEmailExistence(string email)
         {
-            var Found = from u in db.Users
-                        where u.AuthentificationData.Email == email.ToLower()
+            var Found = from u in db.UsersProfile
+                        where u.UserData.Email == email.ToLower()
                         select u;
             if (Found.Any())
             {

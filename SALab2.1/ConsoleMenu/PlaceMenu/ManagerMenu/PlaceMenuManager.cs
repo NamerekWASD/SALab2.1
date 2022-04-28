@@ -6,10 +6,7 @@ namespace SALab2._1.ConsoleMenu.PlaceMenu.ManagerMenu
     {
         private static string[] options =
         {
-            "1. Add place",
-            "2. Edit place",
-            "3. Remove place",
-            "4. Make a request;",
+            
             "5. Add Comment;",
             "6. Attach file;",
             "7. Show place info;",

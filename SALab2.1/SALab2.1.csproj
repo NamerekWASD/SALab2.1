@@ -20,7 +20,6 @@
     <ProjectReference Include="..\BLL\BLL.csproj" />
     <ProjectReference Include="..\DAL\DAL.csproj" />
     <ProjectReference Include="..\Exceptions\Exceptions.csproj" />
-    <ProjectReference Include="..\Mapper\Mappers.csproj" />
     <ProjectReference Include="..\ViewModels\ViewModels.csproj" />
   </ItemGroup>
 

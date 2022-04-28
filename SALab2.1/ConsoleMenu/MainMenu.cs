@@ -2,7 +2,7 @@
 using SALab2._1.ConsoleMenu.Enter;
 using SALab2._1.Exceptions;
 using ViewModels.UserViewModels;
-using static ViewModels.UserViewModels.LoginViewModel;
+using static ViewModels.UserViewModels.UserViewModel;
 
 namespace SALab2._1.ConsoleMenu
 {
@@ -58,7 +58,7 @@ namespace SALab2._1.ConsoleMenu
         private void SignIn()
         {
 
-            string email = ReadDataInput("Email: ", Pattern.EMAIL);
+            /*string email = ReadDataInput("Email: ", Pattern.EMAIL);
             string password = string.Empty;
             while (true)
             {
@@ -71,17 +71,7 @@ namespace SALab2._1.ConsoleMenu
 
             string name = ReadDataInput("Name: ", Pattern.NAME);
             string surname = ReadDataInput("Surname: ", Pattern.NAME);
-            
-            /*Console.WriteLine("Are you manager? ");
-            Role role = null;
-            if (ChoiceToBool())
-            {
-                role = new Manager();
-            }
-            else
-            {
-                role = new UserWithoutPermission();
-            }*/
+
             try
             {
                 UserService.SignIn(name, surname, email, password);
@@ -92,6 +82,17 @@ namespace SALab2._1.ConsoleMenu
                 return;
             }
             personalAccountMenu = new PersonalAccountMenu(email, password);
+            personalAccountMenu.Run();*/
+            try
+            {
+                UserService.SignIn("Nik", "Tym", "1", "1");
+            }
+            catch (ExistenceEmailException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return;
+            }
+            personalAccountMenu = new PersonalAccountMenu("1", "1");
             personalAccountMenu.Run();
         }
     }

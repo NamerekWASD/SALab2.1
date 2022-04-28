@@ -18,8 +18,8 @@ namespace ViewModels.PlaceViewModels
         public string Location { get; set; }
 
 
-        public ICollection<CommentViewModel>? Comments { get; set; } = new List<CommentViewModel>();
-        public ICollection<FileBaseViewModel>? Media { get; set; } = new List<FileBaseViewModel>();
+        public List<CommentViewModel>? Comments { get; set; }
+        public List<FileBaseViewModel>? Media { get; set; }
         public override string ToString()
         {
             return $"Name: {Name}" +
@@ -50,6 +50,7 @@ namespace ViewModels.PlaceViewModels
             foreach (var c in Comments)
             {
                 comments += "\n " + c;
+                
             }
             return comments;
         }

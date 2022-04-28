@@ -1,8 +1,8 @@
-﻿using Mappers.GeneralMappers;
-using SALab2._1.ConsoleMenu.Base;
+﻿using SALab2._1.ConsoleMenu.Base;
 using SALab2._1.ConsoleMenu.PlaceMenu;
 using SALab2._1.ConsoleMenu.PlaceMenu.Base;
 using SALab2._1.ConsoleMenu.PlaceMenu.ManagerMenu;
+using Services.GeneralMappers;
 using ViewModels.PlaceViewModels;
 using ViewModels.UserViewModels;
 
@@ -10,7 +10,7 @@ namespace SALab2._1.ConsoleMenu.Enter
 {
     internal class PersonalAccountMenu : MenuBase
     {
-        public UserViewModel User { get; set; }
+        public UserProfileViewModel User { get; set; }
 
         private static string[] options =
        {
@@ -30,7 +30,7 @@ namespace SALab2._1.ConsoleMenu.Enter
         {
             User = UserService.LogIn(email, pass).ToViewModel();
 
-            if (User.Status == 1)
+            if (User.Status == "Manager")
             {
                 placeMenu = new PlaceMenuManager();
             }

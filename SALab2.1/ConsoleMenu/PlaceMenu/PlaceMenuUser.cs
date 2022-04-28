@@ -11,6 +11,11 @@ namespace SALab2._1.ConsoleMenu.PlaceMenu
         "3. Show place info;",
         "4. back."
     };
+        public PlaceMenuUser()
+            : base(options)
+        {
+
+        }
         private enum Option
         {
             ADD_COMMENT = 1,
@@ -18,12 +23,7 @@ namespace SALab2._1.ConsoleMenu.PlaceMenu
             SHOW_PLACE_INFO,
             BACK
         }
-        public PlaceMenuUser()
-            : base(options)
-        {
-
-        }
-        protected sealed override ConsoleMode ProcessOption(int option)
+        protected override ConsoleMode ProcessOption(int option)
         {
             Console.Clear();
             Option action = (Option)option;
@@ -45,7 +45,5 @@ namespace SALab2._1.ConsoleMenu.PlaceMenu
                     return ConsoleMode.CONTINUE;
             }
         }
-
-
     }
 }

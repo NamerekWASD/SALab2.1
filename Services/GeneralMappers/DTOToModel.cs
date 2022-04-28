@@ -6,8 +6,9 @@ using Models.MediaModel.MatchingToPlace;
 using Models.MediaModels;
 using Models.PlaceModels;
 using Models.UserModels;
+using Services.GeneralMappers;
 
-namespace Mappers.GeneralMappers
+namespace Services.GeneralMappers
 {
     public static class DTOToModel
     {
@@ -26,48 +27,14 @@ namespace Mappers.GeneralMappers
         }
         public static List<PlaceModel> ToModel(this ICollection<PlaceDTO> placeDTOs)
         {
-            List<PlaceModel> placesModel = new List<PlaceModel>();
-            if (placeDTOs != null && placeDTOs.Count != 0)
+            if (placeDTOs == null || placeDTOs.Count == 0)
+                return new();
+            List<PlaceModel> placesModel = new();
                 foreach (var place in placeDTOs)
                 {
                     placesModel.Add(place.ToModel());
                 }
             return placesModel;
-        }
-        public static CommentModel ToModel(this CommentBaseDTO commentDTO)
-        {
-            return new()
-            {
-                Id = commentDTO.Id,
-                Content = commentDTO.Content,
-                Created = commentDTO.Created,
-                UserWhoLeft = commentDTO.UserWhoLeft.ToModel(),
-                PlaceWhereLeft = commentDTO.PlaceWhereLeft.ToModel(),
-            };
-
-        }
-        public static CommentModel ToModel(this CommentDTO commentDTO)
-        {
-            return new()
-            {
-                Id = commentDTO.Id,
-                Content = commentDTO.Content,
-                Created = commentDTO.Created,
-                UserWhoLeft = commentDTO.UserWhoLeft.ToModel(),
-                PlaceWhereLeft = commentDTO.PlaceWhereLeft.ToModel(),
-                Replies = commentDTO.Replies.ToModel(),
-            };
-        }
-
-        public static List<CommentModel> ToModel(this List<CommentBaseDTO> commentsDTO)
-        {
-            List<CommentModel> commentsModel = new();
-            if (commentsDTO != null && commentsDTO.Count != 0)
-                foreach (var comment in commentsDTO)
-                {
-                    commentsModel.Add(comment.ToModel());
-                }
-            return commentsModel;
         }
 
         public static FileContainerModel ToModel(this FileContainerDTO FileDTO)
@@ -82,12 +49,13 @@ namespace Mappers.GeneralMappers
         }
         public static List<FileContainerModel> ToModel(this ICollection<FileContainerDTO> filesDTO)
         {
-            List<FileContainerModel> filesModel = new List<FileContainerModel>();
-            if (filesDTO != null && filesDTO.Count != 0)
-                foreach (var file in filesDTO)
-                {
-                    filesModel.Add(file.ToModel());
-                }
+            if (filesDTO == null || filesDTO.Count == 0)
+                return new();
+            List<FileContainerModel> filesModel = new();
+            foreach (var file in filesDTO)
+            {
+                filesModel.Add(file.ToModel());
+            }
             return filesModel;
         }
         public static UserProfileModel ToModel(this UserProfileDTO userDTO)
@@ -112,6 +80,33 @@ namespace Mappers.GeneralMappers
                 Status = data.Status,
                 UserProfile = data.UserProfile.ToModel(),
             };
+        }
+
+        public static CommentModel ToModel(this CommentDTO commentDTO)
+        {
+            return new()
+            {
+                Id = commentDTO.Id,
+                Content = commentDTO.Content,
+                Created = commentDTO.Created,
+                UserWhoLeft = commentDTO.UserWhoLeft.ToModel(),
+                UserWhoLeftId = commentDTO.UserWhoLeftId,
+                PlaceWhereLeft = commentDTO.PlaceWhereLeft.ToModel(),
+                PlaceWhereLeftId = commentDTO.PlaceWhereLeftId,
+                
+            };
+        }
+
+        public static List<CommentModel> ToModel(this List<CommentDTO> commentsDTO)
+        {
+            if (commentsDTO == null || commentsDTO.Count == 0)
+                return new();
+            List<CommentModel> commentsModel = new();
+            foreach (var comment in commentsDTO)
+            {
+                commentsModel.Add(comment.ToModel());
+            }
+            return commentsModel;
         }
     }
 }

@@ -1,40 +1,39 @@
 ﻿using BLL.Controllers;
 using BLL.Service.Base;
-using DTO.PlaceDTOs;
 using DTO.UserDTOs;
-using Mappers.GeneralMappers;
-using static DTO.PlaceDTOs.PlaceDTO;
+using Services.GeneralMappers;
 
 namespace BLL.Service
 {
     public class UserService : IUserService
     {
         private static UserController UserController = new();
-        public UserDTO SignIn(string name, string surname, string email, string password)
+        public UserProfileDTO SignIn(string name, string surname, string email, string password)
         {
             var user = new UserDTO()
             {
-                Name = name,
-                Surname = surname,
-                AuthentificationData = new()
+                Email = email.ToLower(),
+                Password = password,
+                IsManager = true,
+                UserProfile = new()
                 {
-                    Email = email.ToLower(),
-                    Password = password,
-                },
+                    Name = name,
+                    Surname = surname,
+                }
             };
             UserController.Create(user.ToModel());
-            return user;
+            return user.UserProfile;
         }
-        public UserDTO LogIn(string email, string password)
+        public UserProfileDTO LogIn(string email, string password)
         {
             return UserController.LogIn(email, password).ToDTO();
         }
-        public void UpdateUser(UserDTO user)
+        public void UpdateUser(UserProfileDTO user)
         {
             UserController.Edit(user.ToModel());
         }
 
-        public void DeleteUser(UserDTO user)
+        public void DeleteUser(UserProfileDTO user)
         {
             UserController.Delete(user.ToModel());
         }

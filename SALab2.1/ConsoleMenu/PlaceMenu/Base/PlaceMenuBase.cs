@@ -1,6 +1,6 @@
-﻿using Mappers.GeneralMappers;
-using Models.MediaModel.Base;
+﻿using Models.MediaModel.Base;
 using SALab2._1.ConsoleMenu.Base;
+using Services.GeneralMappers;
 using ViewModels.MediaViewModels;
 using ViewModels.PlaceViewModels;
 using ViewModels.UserViewModels;
@@ -9,8 +9,9 @@ namespace SALab2._1.ConsoleMenu.PlaceMenu.Base
 {
     internal class PlaceMenuBase : MenuBase
     {
-        public UserViewModel User { get; set; } = new ();
+        public UserProfileViewModel User { get; set; } = new ();
         public PlaceViewModel Place { private get; set; } = new();
+        
         public PlaceMenuBase(string[] options)
             : base(options)
         {
@@ -18,6 +19,7 @@ namespace SALab2._1.ConsoleMenu.PlaceMenu.Base
         protected override ConsoleMode ProcessOption(int option)
         {
             throw new NotImplementedException();
+            
         }
 
         protected void AttachFile()
@@ -58,7 +60,8 @@ namespace SALab2._1.ConsoleMenu.PlaceMenu.Base
                 }
             }
 
-            PlaceService.AttachFile(place.ToDTO(),
+            PlaceService.AttachFile(
+                place.ToDTO(),
                 User.ToDTO(),
                 file.ToDTO());
         }
@@ -97,12 +100,14 @@ namespace SALab2._1.ConsoleMenu.PlaceMenu.Base
                 {
                     Console.WriteLine(ex.Message);
                 }
-            } while (!Equals(Console.ReadKey(), 'b'));
+            } while (true);
+
             for (int i = 0; i < placesFound.Count; i++)
             {
                 PlaceViewModel? p = placesFound[i];
                 Console.WriteLine($"{i + 1}. {p.Name}");
             }
+
             Console.Write("Chose place via id: ");
             PlaceViewModel place = new();
             while (true)
