@@ -11,65 +11,100 @@ namespace SALab2._1.ConsoleMenu.PlaceMenu.Base
     {
         public UserProfileViewModel User { get; set; } = new ();
         public PlaceViewModel Place { private get; set; } = new();
-        
-        public PlaceMenuBase(string[] options)
+
+        protected static string[] options =
+        {
+            "1. Add visited place",
+            "2. Add Comment;",
+            "3. Attach file;",
+            "4. Show place info;",
+            "5. back."
+        };
+        public PlaceMenuBase(string[] anotherOptions)
             : base(options)
         {
         }
+        private enum Option
+        {
+            ADD_VISITED_PLACE = 1,
+            ADD_COMMENT ,
+            ATTACH_FILE,
+            SHOW_PLACE_INFO,
+            BACK
+        }
         protected override ConsoleMode ProcessOption(int option)
         {
-            throw new NotImplementedException();
-            
+            Console.Clear();
+            Option action = (Option)option;
+            switch (action)
+            {
+                case Option.ADD_VISITED_PLACE:
+                    AddVisitedPlace();
+                    return ConsoleMode.CONTINUE;
+                case Option.ADD_COMMENT:
+                    LeaveComment();
+                    return ConsoleMode.CONTINUE;
+                case Option.ATTACH_FILE:
+                    AttachFile();
+                    return ConsoleMode.CONTINUE;
+                case Option.SHOW_PLACE_INFO:
+                    ShowPlaceInfo();
+                    return ConsoleMode.CONTINUE;
+                case Option.BACK:
+                    return ConsoleMode.QUIT;
+                default:
+                    Console.WriteLine(Message.DEFUNCT_OPTION);
+                    return ConsoleMode.CONTINUE;
+            }
+
         }
 
         protected void AttachFile()
         {
             PlaceViewModel place = UsePreviousPlaceOrGetAnother();
-            FileBaseViewModel file = null;
-            Console.WriteLine("What attach?" +
-                "\n1. Video" +
-                "\n2. Photo");
-            while (file is null)
-            {
-                switch (int.Parse(ReadDataInput("")))
-                {
-                    case 1:
-                        try
-                        {
-                            file = new VideoViewModel()
-                            {
-                                Path = ReadDataInput("Path: "),
-                            };
-                        }
-                        catch (FileNotFoundException ex) { Console.WriteLine(ex.Message); }
-                        break;
-                    case 2:
-                        try
-                        {
-                            file = new PhotoViewModel()
-                            {
-                                Path = ReadDataInput("Path: "),
-                            };
-                        }
-                        catch (FileNotFoundException ex) { Console.WriteLine(ex.Message); }
 
-                        break;
-                    default:
-                        Console.WriteLine(Message.DEFUNCT_OPTION);
-                        break;
-                }
+            var fileList = new List<FileBaseViewModel>()
+            {
+                new VideoViewModel(),
+                new PhotoViewModel(),
+            };
+
+            FileBaseViewModel file;
+
+            try
+            {
+                file = fileList[
+                    int.Parse(ReadDataInput
+                    ("What attach?" +
+                "\n1. Video" +
+                "\n2. Photo" +
+                "\nPress any key to back"))
+                    ];
+                file.Path = ReadDataInput("Path: ");
+            }
+            catch (FileNotFoundException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return;
+            }
+            catch (IndexOutOfRangeException)
+            {
+                return;
             }
 
-            PlaceService.AttachFile(
+
+            Place = PlaceService.AttachFile(
                 place.ToDTO(),
                 User.ToDTO(),
-                file.ToDTO());
+                file.ToDTO()).ToViewModel();
         }
 
         protected void LeaveComment()
         {
             var place = UsePreviousPlaceOrGetAnother();
+
             var content = ReadDataInput("");
+
             PlaceService.AddComment(place.ToDTO(),
                 User.ToDTO(),
                 content);
@@ -78,47 +113,56 @@ namespace SALab2._1.ConsoleMenu.PlaceMenu.Base
         protected void ShowPlaceInfo()
         {
             var place = UsePreviousPlaceOrGetAnother();
-            Console.WriteLine("PlaceModel info: ");
-            Console.WriteLine(place);
-            Console.WriteLine(place.GetMedia());
-            Console.WriteLine(place.GetComments());
+            Console.WriteLine("Place info: \n" 
+                + place
+                + place.GetMedia()
+                + place.GetComments()
+                );            
         }
         private PlaceViewModel FindByKeyWord()
         {
-            List<PlaceViewModel> placesFound = new();
-            do
-            {
-                string keyword = ReadDataInput("Key word: ");
-                try
-                {
-                    placesFound = PlaceService.
-                        GetPlacesByKeyWord(keyword).
-                        ToList().ToViewModel().ToList();
-                    break;
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
-            } while (true);
+            List<PlaceViewModel> foundPlaces = new();
 
-            for (int i = 0; i < placesFound.Count; i++)
+            string keyword = ReadDataInput("Key word: ");
+
+            try
             {
-                PlaceViewModel? p = placesFound[i];
+                foundPlaces = PlaceService.
+                    GetPlacesByKeyWord(keyword)
+                    .ToViewModel();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
+            }
+
+            return IterateAndChoose(foundPlaces);
+            
+        }
+
+        private PlaceViewModel IterateAndChoose(List<PlaceViewModel> foundPlaces)
+        {
+            for (int i = 0; i < foundPlaces.Count; i++)
+            {
+                PlaceViewModel? p = foundPlaces[i];
                 Console.WriteLine($"{i + 1}. {p.Name}");
             }
 
             Console.Write("Chose place via id: ");
+
             PlaceViewModel place = new();
-            while (true)
+
+            int index = int.Parse(Console.ReadLine()!);
+
+            try
             {
-                try
-                {
-                    int index = int.Parse(Console.ReadLine());
-                    place = placesFound[index - 1];
-                    break;
-                }
-                catch (Exception ex) { }
+                place = foundPlaces[index - 1];
+            }
+            catch (IndexOutOfRangeException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
             }
             return place;
         }
@@ -128,8 +172,8 @@ namespace SALab2._1.ConsoleMenu.PlaceMenu.Base
             {
                 return FindByKeyWord();
             }
-            Console.WriteLine("Use previous place?");
-            if (ChoiceToBool())
+
+            if (ChoiceToBool("Use previous place?"))
             {
                 return Place;
             }
@@ -137,6 +181,14 @@ namespace SALab2._1.ConsoleMenu.PlaceMenu.Base
             {
                 return FindByKeyWord();
             }
+        }
+        protected void AddVisitedPlace()
+        {
+            Place = UsePreviousPlaceOrGetAnother();
+
+            User.VisitedPlaces!.Add(Place);
+
+            UserService.Edit(User.ToDTO());
         }
     }
 }

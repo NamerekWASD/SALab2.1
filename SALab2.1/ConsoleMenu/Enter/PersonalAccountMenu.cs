@@ -20,7 +20,7 @@ namespace SALab2._1.ConsoleMenu.Enter
         };
         private enum Option
         {
-            ADD_VISITED_PLACE = 1,
+            SETTINGS = 1,
             GO_TO_PLACE,
             BACK
         }
@@ -47,8 +47,8 @@ namespace SALab2._1.ConsoleMenu.Enter
             Option action = (Option)option;
             switch (action)
             {
-                case Option.ADD_VISITED_PLACE:
-                    AddVisitedPlace();
+                case Option.SETTINGS:
+                    Settings();
                     return ConsoleMode.CONTINUE;
                 case Option.GO_TO_PLACE:
                     GoToPlaceMenu();
@@ -60,41 +60,9 @@ namespace SALab2._1.ConsoleMenu.Enter
                     return ConsoleMode.CONTINUE;
             }
         }
-        private void AddVisitedPlace()
+        private void Settings()
         {
-            string name = ReadDataInput("PlaceModel name: ", Pattern.NAME);
-            List<PlaceViewModel> placesFound = new();
-            try
-            {
-                placesFound = PlaceService.GetPlacesByKeyWord(name)
-                    .ToList()
-                    .ToViewModel()
-                    .ToList();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                return;
-            }
-
-            for (int i = 0; i < placesFound.Count; i++)
-            {
-                Console.WriteLine($"{i + 1}. {placesFound[i].Name}");
-            }
-            Console.Write("Chose place via id: ");
-            PlaceViewModel place = new();
-            while (true)
-            {
-                try
-                {
-                    int index = int.Parse(Console.ReadLine());
-                    place = placesFound[index - 1];
-                    break;
-                }
-                catch (Exception) { }
-            }
-            User.VisitedPlaces.Add(place);
-            UserService.UpdateUser(User.ToDTO());
+            
         }
 
         private void GoToPlaceMenu()

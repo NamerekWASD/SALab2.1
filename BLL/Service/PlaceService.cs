@@ -25,29 +25,33 @@ namespace BLL.Service
             return place;
         }
 
-        public IEnumerable<PlaceDTO> GetPlacesByKeyWord(string keyWord)
+        public List<PlaceDTO> GetPlacesByKeyWord(string keyWord)
         {
             var placesFound = from p in UoF.Places.GetAll()
                               .ToList()
                               .ToDTO()
                               where p.Name.Contains(keyWord)
                               select p;
-            if (placesFound is null || placesFound.Count() == 0)
+
+            if (placesFound is null || !placesFound.Any())
             {
                 throw new Exception($"Nothing found by keyword {keyWord}.");
             }
-            return placesFound;
+            return placesFound.ToList();
         }
 
         public PlaceDTO EditPlace(PlaceDTO place)
         {
-            UoF.Places.Update(place.ToModel());
+            UoF.Places
+                .Update(place.ToModel());
+
             return place;
         }
 
         public void DeletePlace(PlaceDTO place)
         {
-            UoF.Places.Delete(place.ToModel());
+            UoF.Places
+                .Delete(place.ToModel());
         }
         public PlaceDTO AttachFile(PlaceDTO place, UserProfileDTO userWhoAttach, FileContainerDTO file)
         {
@@ -57,10 +61,12 @@ namespace BLL.Service
                 PlaceWhereAttached = place,
                 UserWhoAttached = userWhoAttach,
             };
-            place.Media.Add(fileToPlace);
-            userWhoAttach.FilesAttached.Add(fileToPlace);
 
-            UoF.Places.Update(place.ToModel());
+            place.Media.Add(fileToPlace);
+
+            UoF.Places
+                .Update(place.ToModel());
+
             return place;
         }
         public PlaceDTO AddComment(PlaceDTO placeWhereLeft, UserProfileDTO userWhoLeft, string content)
@@ -74,7 +80,8 @@ namespace BLL.Service
             };
             placeWhereLeft.Comments.Add(comment);
 
-            UoF.Places.Update(placeWhereLeft.ToModel());
+            UoF.Places
+                .Update(placeWhereLeft.ToModel());
 
             return placeWhereLeft;
         }
@@ -89,20 +96,23 @@ namespace BLL.Service
                 Created = DateTime.Now,
                 CommentOnRepliedId = onReplyCommentId,
             };
-
+            placeWhereLeft.Comments = InsertReply(
+                placeWhereLeft.Comments!,
+                onReplyCommentId,
+                reply);
                
             UoF.Places.Update(placeWhereLeft.ToModel());
 
             return placeWhereLeft;
         }
 
-        private List<CommentDTO> CommentIterator(List<CommentDTO> comments, int commentToFindId, CommentDTO replyToAdd)
+        private List<CommentDTO> InsertReply(List<CommentDTO> comments, int commentToFindId, CommentDTO replyToAdd)
         {
             foreach(var comment in comments)
             {
-                if(comment.Replies is not null && comment.Replies.Count is not 0)
+                if(comment.Replies is not null && comment.Replies.Any())
                 {
-                    comments = CommentIterator(comment.Replies, commentToFindId, replyToAdd);
+                    comments = InsertReply(comment.Replies, commentToFindId, replyToAdd);
                 }
                 if(comment.Id == commentToFindId)
                 {

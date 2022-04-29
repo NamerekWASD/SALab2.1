@@ -5,7 +5,7 @@ namespace SALab2._1.ConsoleMenu.PlaceMenu.ManagerMenu
 {
     internal class RequestMenu : PlaceMenuBase
     {
-        private static string[] options =
+        private new static string[] options =
            {
             "1. Add place",
             "2. Edit place",
@@ -51,8 +51,8 @@ namespace SALab2._1.ConsoleMenu.PlaceMenu.ManagerMenu
         private void RemovePlace()
         {
             var place = UsePreviousPlaceOrGetAnother();
-            Console.WriteLine("Are you sure?");
-            if (ChoiceToBool())
+
+            if (ChoiceToBool("Are you sure?"))
             {
                 PlaceService.DeletePlace(place.ToDTO());
             }
@@ -65,27 +65,27 @@ namespace SALab2._1.ConsoleMenu.PlaceMenu.ManagerMenu
         private void EditPlace()
         {
             var place = UsePreviousPlaceOrGetAnother();
-            Console.WriteLine("Do you want to change name?");
-            if (ChoiceToBool())
+
+            if (ChoiceToBool("Do you want to change name?"))
             {
                 place.Name = ReadDataInput("Name: ", Pattern.NAME);
             }
-            Console.WriteLine("Do you want to change Category?");
-            if (ChoiceToBool())
+
+            if (ChoiceToBool("Do you want to change Category?"))
             {
                 place.Category = ReadDataInput("Category: ", Pattern.NAME);
             }
-            Console.WriteLine("Do you want to change unique name?");
-            if (ChoiceToBool())
+
+            if (ChoiceToBool("Do you want to change unique name?"))
             {
                 place.UniqueName = ReadDataInput("Unique name: ", Pattern.NAME);
             }
 
-            Console.WriteLine("Do you want to change location?");
-            if (ChoiceToBool())
+            if (ChoiceToBool("Do you want to change location?"))
             {
                 place.Location = ReadDataInput("Location: ", Pattern.NAME);
             }
+
             Place = PlaceService.EditPlace(place.ToDTO())
                 .ToViewModel();
         }

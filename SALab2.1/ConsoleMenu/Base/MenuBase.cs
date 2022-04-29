@@ -112,12 +112,12 @@ namespace SALab2._1.ConsoleMenu.Base
             }
             return int.Parse(input);
         }
-        protected bool ChoiceToBool()
+        protected bool ChoiceToBool(string message = "")
         {
             string choice;
             while (true)
             {
-                Console.Write(" (y/n): ");
+                Console.Write($"{message} (y/n): ");
                 choice = Console.ReadLine();
                 if (choice == "y")
                     return true;

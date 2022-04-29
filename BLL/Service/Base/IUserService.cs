@@ -7,7 +7,7 @@ namespace BLL.Service.Base
     {
         UserProfileDTO LogIn(string email, string password);
         UserProfileDTO SignIn(string name, string surname, string email, string password);
-        void UpdateUser(UserProfileDTO user);
+        void Edit(UserProfileDTO user);
         void DeleteUser(UserProfileDTO user);
     }
 }

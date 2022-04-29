@@ -19,7 +19,7 @@ namespace BLL.Controllers
             unitOfWork.Save();
         }
 
-        public void Edit(UserProfileModel u)
+        public void Update(UserProfileModel u)
         {
             unitOfWork.Usersdata.Update(u.UserData);
             unitOfWork.Save();
