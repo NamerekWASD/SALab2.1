@@ -25,9 +25,9 @@ namespace Services.GeneralMappers
                 Media = placeDTO.Media.ToModel(),
             };
         }
-        public static List<PlaceModel> ToModel(this ICollection<PlaceDTO> placeDTOs)
+        public static List<PlaceModel> ToModel(this List<PlaceDTO> placeDTOs)
         {
-            if (placeDTOs == null || placeDTOs.Count == 0)
+            if (placeDTOs == null || !placeDTOs.Any())
                 return new();
             List<PlaceModel> placesModel = new();
                 foreach (var place in placeDTOs)
@@ -49,7 +49,7 @@ namespace Services.GeneralMappers
         }
         public static List<FileContainerModel> ToModel(this ICollection<FileContainerDTO> filesDTO)
         {
-            if (filesDTO == null || filesDTO.Count == 0)
+            if (filesDTO == null || !filesDTO.Any())
                 return new();
             List<FileContainerModel> filesModel = new();
             foreach (var file in filesDTO)
@@ -99,7 +99,7 @@ namespace Services.GeneralMappers
 
         public static List<CommentModel> ToModel(this List<CommentDTO> commentsDTO)
         {
-            if (commentsDTO == null || commentsDTO.Count == 0)
+            if (commentsDTO == null || !commentsDTO.Any())
                 return new();
             List<CommentModel> commentsModel = new();
             foreach (var comment in commentsDTO)

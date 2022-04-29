@@ -20,11 +20,11 @@ namespace Services.GeneralMappers
                 Category = place.Category,
                 UniqueName = place.UniqueName,
                 Location = place.Location,
-                Comments = place.Comments.ToDTO(),
-                Media = place.Media.ToDTO(),
+                Comments = place.Comments!.ToDTO(),
+                Media = place.Media!.ToDTO(),
             };
         }
-        public static List<PlaceDTO> ToDTO(this ICollection<PlaceModel> places)
+        public static List<PlaceDTO> ToDTO(this List<PlaceModel> places)
         {
             if (places == null || places.Count == 0)
                 return new();

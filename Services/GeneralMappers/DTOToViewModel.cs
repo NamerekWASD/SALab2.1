@@ -27,7 +27,7 @@ namespace Services.GeneralMappers
         }
         public static List<PlaceViewModel> ToViewModel(this ICollection<PlaceDTO> placesDTO)
         {
-            if (placesDTO == null || placesDTO.Count == 0)
+            if (placesDTO == null || !placesDTO.Any())
                 return new();
             List<PlaceViewModel> placesViewModel = new();
             foreach (var place in placesDTO)
@@ -52,7 +52,7 @@ namespace Services.GeneralMappers
         }
         public static List<CommentViewModel> ToViewModel(this List<CommentDTO> commentsDTO)
         {
-            if (commentsDTO == null || commentsDTO.Count == 0)
+            if (commentsDTO == null || !commentsDTO.Any())
                 return new();
             List<CommentViewModel> commentsViewModel = new();
             foreach (var comment in commentsDTO)
@@ -115,7 +115,7 @@ namespace Services.GeneralMappers
         }
         public static List<FileBaseViewModel> ToViewModel(this ICollection<FileContainerDTO> filesDTO)
         {
-            if (filesDTO == null || filesDTO.Count == 0)
+            if (filesDTO == null || !filesDTO.Any())
                 return new();
             List <FileBaseViewModel> filesModel = new();
             foreach (var file in filesDTO)

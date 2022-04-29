@@ -27,7 +27,7 @@ namespace Services.GeneralMappers
         }
         public static List<PlaceDTO> ToDTO(this ICollection<PlaceViewModel> places)
         {
-            if (places == null || places.Count == 0)
+            if (places == null || !places.Any())
                 return new();
             List<PlaceDTO> placeDTOs = new();
                 foreach (var place in places)
@@ -51,7 +51,7 @@ namespace Services.GeneralMappers
         }
             public static List<CommentDTO> ToDTO(this List<CommentViewModel> comments)
         {
-            if (comments == null || comments.Count == 0)
+            if (comments == null || !comments.Any())
                 return new();
             List<CommentDTO> commentDTOs = new();
             foreach (var comment in comments)
@@ -116,7 +116,7 @@ namespace Services.GeneralMappers
         }
         public static List<FileContainerDTO> ToDTO(this ICollection<FileBaseViewModel> files)
         {
-            if (files == null || files.Count == 0)
+            if (files == null || !files.Any())
                 return new();
             List<FileContainerDTO> fileDTOs = new();
                 foreach (var file in files)
