@@ -20,6 +20,7 @@ namespace ViewModels.PlaceViewModels
 
         public List<CommentViewModel>? Comments { get; set; }
         public List<FileBaseViewModel>? Media { get; set; }
+
         public override string ToString()
         {
             return $"Name: {Name}" +
@@ -30,7 +31,7 @@ namespace ViewModels.PlaceViewModels
         public string GetMedia()
         {
             string media = string.Empty;
-            if (Media is null || Media.Count is 0)
+            if (Media is null || !Media.Any())
             {
                 return media;
             }
@@ -43,13 +44,13 @@ namespace ViewModels.PlaceViewModels
         public string GetComments()
         {
             string comments = string.Empty;
-            if (Comments is null || Comments.Count is 0)
+            if (Comments is null || !Comments.Any())
             {
                 return comments;
             }
             foreach (var c in Comments)
             {
-                comments += "\n " + c;
+                comments += "\n " + c.ToString();
                 
             }
             return comments;

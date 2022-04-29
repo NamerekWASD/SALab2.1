@@ -1,5 +1,4 @@
 ﻿using DTO.CommentDTOs;
-using DTO.UserDTOs;
 using Models.MediaModel.MatchingToPlace;
 
 namespace DTO.PlaceDTOs
