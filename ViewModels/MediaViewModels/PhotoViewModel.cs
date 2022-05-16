@@ -1,8 +1,8 @@
-﻿using Models.MediaModel.Base;
+﻿using ViewModels.MediaViewModels.Base;
 
 namespace ViewModels.MediaViewModels
 {
-    public class PhotoViewModel : FileBaseViewModel
+    public class PhotoViewModel : FileViewModel
     {
         public PhotoViewModel()
         {

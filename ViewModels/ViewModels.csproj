@@ -7,6 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="CommentViewModels\**" />
+    <Compile Remove="PlaceViewModels\**" />
+    <EmbeddedResource Remove="CommentViewModels\**" />
+    <EmbeddedResource Remove="PlaceViewModels\**" />
+    <None Remove="CommentViewModels\**" />
+    <None Remove="PlaceViewModels\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Xabe.FFmpeg" Version="5.1.0" />
   </ItemGroup>
 

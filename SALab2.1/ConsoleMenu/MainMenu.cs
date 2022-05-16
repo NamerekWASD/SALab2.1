@@ -1,8 +1,5 @@
 ﻿using SALab2._1.ConsoleMenu.Base;
-using SALab2._1.ConsoleMenu.Enter;
-using SALab2._1.Exceptions;
-using ViewModels.UserViewModels;
-using static ViewModels.UserViewModels.UserViewModel;
+using SALab2._1.ConsoleMenu.PlaceMenu;
 
 namespace SALab2._1.ConsoleMenu
 {
@@ -10,23 +7,24 @@ namespace SALab2._1.ConsoleMenu
     {
         private static string[] options =
         {
-            "1. SignIn;",
-            "2. LogIn;",
+            "1. Go to place menu;",
+            "2. Go to request menu;",
             "3. Quit.",
         };
 
         private enum Option
         {
-            GOTO_SIGNIN = 1,
-            GOTO_LOGIN,
+            GOTO_PLACE_MENU = 1,
+            GOTO_REQUEST_MENU,
             QUIT,
         }
-
-        private PersonalAccountMenu personalAccountMenu;
-
+        private readonly PlaceMain placeMenu;
+        private readonly RequestMenu requestMenu;
         public MainMenu()
             : base(options)
         {
+            placeMenu = new PlaceMain();
+            requestMenu = new RequestMenu();
         }
 
         protected sealed override ConsoleMode ProcessOption(int option)
@@ -35,11 +33,11 @@ namespace SALab2._1.ConsoleMenu
             Option action = (Option)option;
             switch (action)
             {
-                case Option.GOTO_SIGNIN:
-                    SignIn();
+                case Option.GOTO_PLACE_MENU:
+                    PlaceMenu();
                     return ConsoleMode.CONTINUE;
-                case Option.GOTO_LOGIN:
-                    LogIn();
+                case Option.GOTO_REQUEST_MENU:
+                    Requests();
                     return ConsoleMode.CONTINUE;
                 case Option.QUIT:
                     return ConsoleMode.QUIT;
@@ -49,51 +47,14 @@ namespace SALab2._1.ConsoleMenu
             }
         }
 
-        private void LogIn()
+        private void PlaceMenu()
         {
-            personalAccountMenu = new PersonalAccountMenu(ReadDataInput("Email: "), ReadDataInput("Password: "));
-            personalAccountMenu.Run();
+            placeMenu.Run();
+        }
+        private void Requests()
+        {
+            requestMenu.Run();
         }
 
-        private void SignIn()
-        {
-
-            /*string email = ReadDataInput("Email: ", Pattern.EMAIL);
-            string password = string.Empty;
-            while (true)
-            {
-                password = ReadDataInput("Password: ", Pattern.PASSWORD);
-                if (password == ReadDataInput("Confirm password: "))
-                {
-                    break;
-                }
-            }
-
-            string name = ReadDataInput("Name: ", Pattern.NAME);
-            string surname = ReadDataInput("Surname: ", Pattern.NAME);
-
-            try
-            {
-                UserService.SignIn(name, surname, email, password);
-            }
-            catch (IncorrectEmailOrPasswordException ex)
-            {
-                Console.WriteLine(ex.Message);
-                return;
-            }
-            personalAccountMenu = new PersonalAccountMenu(email, password);
-            personalAccountMenu.Run();*/
-            try
-            {
-                UserService.SignIn("Nik", "Tym", "1", "1");
-            }
-            catch (ExistenceEmailException ex)
-            {
-                Console.WriteLine(ex.Message);
-                return;
-            }
-            personalAccountMenu = new PersonalAccountMenu("1", "1");
-            personalAccountMenu.Run();
-        }
     }
 }

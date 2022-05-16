@@ -1,13 +1,15 @@
 ﻿using BLL.Service;
 using BLL.Service.Base;
+using Exceptions;
 using SALab2._1.ConsoleMenu.Interfaces;
-using SALab2._1.Exceptions;
 using System.Text.RegularExpressions;
+using ViewModels;
 
 namespace SALab2._1.ConsoleMenu.Base
 {
     public abstract class MenuBase : IMenu<int>, IRunableMenu
     {
+        protected PlaceViewModel Place { get; set; }
         private readonly string[] options;
         protected enum ConsoleMode
         {
@@ -24,8 +26,7 @@ namespace SALab2._1.ConsoleMenu.Base
         protected struct Pattern
         {
             public const string NAME = @"^[a-zA-Z]+[\s|-]?[a-zA-Z]+[\s|-]?[a-zA-Z]+$";
-            public const string EMAIL = @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$";
-            public const string PASSWORD = @"^(.{8,15}|[0-9]+|[a-z]+)$";
+            public const string NUMBER = @"^\d$";
         }
         public MenuBase(string[] options = null)
         {
@@ -39,8 +40,7 @@ namespace SALab2._1.ConsoleMenu.Base
         protected abstract ConsoleMode ProcessOption(int option);
 
         protected IPlaceService PlaceService = new PlaceService();
-        protected IUserService UserService = new UserService();
-
+        protected IRequestService RequestService = new RequestService();
         protected virtual string ReadDataInput(string message, string pattern = "")
         {
             if (pattern != "")
@@ -96,7 +96,7 @@ namespace SALab2._1.ConsoleMenu.Base
                 int option = ReadOption();
                 return ProcessOption(option);
             }
-            catch (InvalidOptionException ex)
+            catch (NotFoundException ex)
             {
                 Console.WriteLine(ex.Message);
                 return ConsoleMode.ERROR;
@@ -108,7 +108,7 @@ namespace SALab2._1.ConsoleMenu.Base
             bool Valid = ValidateInput(input, @"[1-9]");
             if (!Valid)
             {
-                throw new InvalidOptionException(Message.ERR_MESSAGE);
+                throw new NotFoundException(Message.ERR_MESSAGE);
             }
             return int.Parse(input);
         }

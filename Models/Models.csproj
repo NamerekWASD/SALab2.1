@@ -7,14 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="MediaModels\Base\**" />
-    <Compile Remove="MediaModels\MatchingToPlace\**" />
     <Compile Remove="Models\**" />
-    <EmbeddedResource Remove="MediaModels\Base\**" />
-    <EmbeddedResource Remove="MediaModels\MatchingToPlace\**" />
     <EmbeddedResource Remove="Models\**" />
-    <None Remove="MediaModels\Base\**" />
-    <None Remove="MediaModels\MatchingToPlace\**" />
     <None Remove="Models\**" />
   </ItemGroup>
 

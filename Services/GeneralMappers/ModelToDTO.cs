@@ -1,11 +1,5 @@
-﻿using DTO.CommentDTOs;
-using DTO.PlaceDTOs;
-using DTO.UserDTOs;
-using Models.CommentModels;
-using Models.MediaModel.MatchingToPlace;
-using Models.MediaModels;
-using Models.PlaceModels;
-using Models.UserModels;
+﻿using DTO;
+using Models;
 
 namespace Services.GeneralMappers
 {
@@ -18,8 +12,8 @@ namespace Services.GeneralMappers
                 Id = place.Id,
                 Name = place.Name,
                 Category = place.Category,
-                UniqueName = place.UniqueName,
-                Location = place.Location,
+                Country = place.Country,
+                City = place.City,
                 Comments = place.Comments!.ToDTO(),
                 Media = place.Media!.ToDTO(),
             };
@@ -45,8 +39,7 @@ namespace Services.GeneralMappers
                 Created = comment.Created,
                 PlaceWhereLeft = comment.PlaceWhereLeft.ToDTO(),
                 PlaceWhereLeftId = comment.PlaceWhereLeftId,
-                UserWhoLeft = comment.UserWhoLeft.ToDTO(),
-                UserWhoLeftId = comment.UserWhoLeftId,
+                UserWhoLeft = comment.UserWhoLeft
             };
         }
         public static List<CommentDTO> ToDTO(this List<CommentModel> comments)
@@ -60,76 +53,63 @@ namespace Services.GeneralMappers
             }
             return commentsbase;
         }
-        /*public static CommentBaseDTO ToDTO(this CommentModel comment)
-        {
-            if (comment.Replies == null && comment.Replies.Count == 0)
-            {
-                return new ReplyDTO()
-                {
-                    Id = comment.Id,
-                    Content = comment.Content,
-                    Created = comment.Created,
-                    PlaceWhereLeft = comment.PlaceWhereLeft.ToDTO(),
-                    PlaceWhereLeftId = comment.PlaceWhereLeftId,
-                    UserWhoLeft = comment.UserWhoLeft.ToDTO(),
-                    UserWhoLeftId = comment.UserWhoLeftId,
-                };
-            }
-            else
-            {
-                return new CommentDTO()
-                {
-                    Id = comment.Id,
-                    Content = comment.Content,
-                    Created = comment.Created,
-                    PlaceWhereLeft = comment.PlaceWhereLeft.ToDTO(),
-                    PlaceWhereLeftId = comment.PlaceWhereLeftId,
-                    UserWhoLeft = comment.UserWhoLeft.ToDTO(),
-                    UserWhoLeftId = comment.UserWhoLeftId,
-                    Replies = comment.Replies.ToDTO(),
-                };
-            }
-        }
-        public static List<CommentBaseDTO> ToDTO(this List<CommentModel> comments)
-        {
-            List<CommentBaseDTO> commentsbase = new();
-            if (comments == null || comments.Count == 0)
-                commentsbase.AddRange(from comment in comments
-                                      select comment.ToDTO());
-            return commentsbase;
-        }*/
-        public static FileContainerDTO ToDTO(this FileContainerModel file)
+        public static FileDTO ToDTO(this FileModel file)
         {
             return new()
             {
                 Id = file.Id,
+                Name = file.Name,
                 Path = file.Path,
-                UserWhoAttached = file.UserWhoAttached.ToDTO(),
+                UserWhoAttached = file.UserWhoAttached,
                 PlaceWhereAttached = file.PlaceWhereAttached.ToDTO(),
             };
         }
-        public static List<FileContainerDTO> ToDTO(this List<FileContainerModel> files)
+        public static List<FileDTO> ToDTO(this List<FileModel> files)
         {
             if (files == null || files.Count == 0)
                 return new();
-            List<FileContainerDTO> fileDTOs = new();
+            List<FileDTO> fileDTOs = new();
             foreach (var file in files)
             {
                 fileDTOs.Add(file.ToDTO());
             }
             return fileDTOs;
         }
-        public static UserProfileDTO ToDTO(this UserProfileModel user)
+        public static RequestStoreDTO ToDTO(this RequestStoreModel request)
         {
             return new()
             {
-                Id = user.Id,
-                Name = user.Name,
-                Surname = user.Surname,
-                Status = user.Status,
-                VisitedPlaces = user.VisitedPlaces.ToDTO(),
-                LeftComments = user.LeftComments.ToDTO(),
-                FilesAttached = user.FilesAttached.ToDTO(),
+                Id = request.Id,
+                Place = request.Place.ToDTO(),
+                RequestedPlace = request.RequestedPlace.ToDTO(),
+                IsCreated = request.IsCreated,
+                IsDeleted = request.IsDeleted,
+                IsEdited = request.IsEdited,
+                UserWhoAddedRequest = request.UserWhoAddedRequest
+            };
+        }
+        public static List<RequestStoreDTO> ToDTO(this List<RequestStoreModel> requests)
+        {
+            if (requests == null || requests.Count == 0)
+                return new();
+            List<RequestStoreDTO> requestsDTO = new();
+            foreach (var request in requests)
+            {
+                requestsDTO.Add(request.ToDTO());
+            }
+            return requestsDTO;
+        }
+        public static RequestedPlaceDTO ToDTO(this RequestedPlace requested)
+        {
+            return new()
+            {
+                Id = requested.Id,
+                Name = requested.Name,
+                Category = requested.Category,
+                Country = requested.Country,
+                City = requested.City,
+                Comments = requested.Comments.ToDTO(),
+                Media = requested.Media.ToDTO(),
             };
         }
     }

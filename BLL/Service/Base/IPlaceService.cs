@@ -1,17 +1,15 @@
-﻿using DTO.PlaceDTOs;
-using DTO.UserDTOs;
-using Models.MediaModel.MatchingToPlace;
+﻿using DTO;
+using ViewModels;
 
 namespace BLL.Service.Base
 {
     public interface IPlaceService
     {
         List<PlaceDTO> GetPlacesByKeyWord(string keyWord);
-        void DeletePlace(PlaceDTO place);
-        PlaceDTO AddPlace(string name, string category, string uniqueName, string location);
+        PlaceDTO DeletePlace(int? id);
+        PlaceDTO AddPlace(string name, string category, string country, string city);
         PlaceDTO EditPlace(PlaceDTO place);
-        PlaceDTO AttachFile(PlaceDTO place, UserProfileDTO userWhoAttach, FileContainerDTO fileBase);
-        PlaceDTO AddComment(PlaceDTO placeWhereLeft, UserProfileDTO userWhoLeft, string content);
-        PlaceDTO AddReply(PlaceDTO placeWhereLeft, UserProfileDTO userWhoLeft, int onReplyCommentId, string content);
+        PlaceDTO GetPlaceById(int? id);
+        List<PlaceDTO> GetAll();
     }
 }

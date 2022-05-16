@@ -1,11 +1,5 @@
-﻿using DTO.CommentDTOs;
-using DTO.PlaceDTOs;
-using DTO.UserDTOs;
-using Models.CommentModels;
-using Models.MediaModel.MatchingToPlace;
-using Models.MediaModels;
-using Models.PlaceModels;
-using Models.UserModels;
+﻿using DTO;
+using Models;
 using Services.GeneralMappers;
 
 namespace Services.GeneralMappers
@@ -19,10 +13,10 @@ namespace Services.GeneralMappers
                 Id = placeDTO.Id,
                 Name = placeDTO.Name,
                 Category = placeDTO.Category,
-                UniqueName = placeDTO.UniqueName,
-                Location = placeDTO.Location,
                 Comments = placeDTO.Comments.ToModel(),
                 Media = placeDTO.Media.ToModel(),
+                Country = placeDTO.Country,
+                City = placeDTO.City,
             };
         }
         public static List<PlaceModel> ToModel(this List<PlaceDTO> placeDTOs)
@@ -37,49 +31,27 @@ namespace Services.GeneralMappers
             return placesModel;
         }
 
-        public static FileContainerModel ToModel(this FileContainerDTO FileDTO)
+        public static FileModel ToModel(this FileDTO FileDTO)
         {
             return new()
             {
                 Id = FileDTO.Id,
+                Name = FileDTO.Name,
                 Path = FileDTO.Path,
-                UserWhoAttached = FileDTO.UserWhoAttached.ToModel(),
+                UserWhoAttached = FileDTO.UserWhoAttached,
                 PlaceWhereAttached = FileDTO.PlaceWhereAttached.ToModel(),
             };
         }
-        public static List<FileContainerModel> ToModel(this ICollection<FileContainerDTO> filesDTO)
+        public static List<FileModel> ToModel(this ICollection<FileDTO> filesDTO)
         {
             if (filesDTO == null || !filesDTO.Any())
                 return new();
-            List<FileContainerModel> filesModel = new();
+            List<FileModel> filesModel = new();
             foreach (var file in filesDTO)
             {
                 filesModel.Add(file.ToModel());
             }
             return filesModel;
-        }
-        public static UserProfileModel ToModel(this UserProfileDTO userDTO)
-        {
-            return new()
-            {
-                Id = userDTO.Id,
-                Name = userDTO.Name,
-                Surname = userDTO.Surname,
-                VisitedPlaces = userDTO.VisitedPlaces.ToModel(),
-                LeftComments = userDTO.LeftComments.ToModel(),
-                FilesAttached = userDTO.FilesAttached.ToModel(),
-            };
-        }
-        public static UserModel ToModel(this UserDTO data)
-        {
-            return new()
-            {
-                Id = data.Id,
-                Email = data.Email,
-                Password = data.Password,
-                Status = data.Status,
-                UserProfile = data.UserProfile.ToModel(),
-            };
         }
 
         public static CommentModel ToModel(this CommentDTO commentDTO)
@@ -89,11 +61,9 @@ namespace Services.GeneralMappers
                 Id = commentDTO.Id,
                 Content = commentDTO.Content,
                 Created = commentDTO.Created,
-                UserWhoLeft = commentDTO.UserWhoLeft.ToModel(),
-                UserWhoLeftId = commentDTO.UserWhoLeftId,
+                UserWhoLeft = commentDTO.UserWhoLeft,
                 PlaceWhereLeft = commentDTO.PlaceWhereLeft.ToModel(),
                 PlaceWhereLeftId = commentDTO.PlaceWhereLeftId,
-                
             };
         }
 
@@ -107,6 +77,43 @@ namespace Services.GeneralMappers
                 commentsModel.Add(comment.ToModel());
             }
             return commentsModel;
+        }
+        public static RequestStoreModel ToModel(this RequestStoreDTO request)
+        {
+            return new()
+            {
+                Id = request.Id,
+                Place = request.Place.ToModel(),
+                RequestedPlace = request.RequestedPlace.ToModel(),
+                IsCreated = request.IsCreated,
+                IsDeleted = request.IsDeleted,
+                IsEdited = request.IsEdited,
+                UserWhoAddedRequest = request.UserWhoAddedRequest
+            };
+        }
+        public static List<RequestStoreModel> ToModel(this List<RequestStoreDTO> requests)
+        {
+            if (requests == null || requests.Count == 0)
+                return new();
+            List<RequestStoreModel> requestModel = new();
+            foreach (var request in requests)
+            {
+                requestModel.Add(request.ToModel());
+            }
+            return requestModel;
+        }
+        public static RequestedPlace ToModel(this RequestedPlaceDTO requested)
+        {
+            return new()
+            {
+                Id = requested.Id,
+                Name = requested.Name,
+                Category = requested.Category,
+                Country = requested.Country,
+                City = requested.City,
+                Comments = requested.Comments.ToModel(),
+                Media = requested.Media.ToModel(),
+            };
         }
     }
 }

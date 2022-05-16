@@ -7,9 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="MediaDTOs\Base\**" />
-    <EmbeddedResource Remove="MediaDTOs\Base\**" />
-    <None Remove="MediaDTOs\Base\**" />
+    <Compile Remove="CommentDTOs\**" />
+    <Compile Remove="MediaDTOs\**" />
+    <Compile Remove="PlaceDTOs\**" />
+    <EmbeddedResource Remove="CommentDTOs\**" />
+    <EmbeddedResource Remove="MediaDTOs\**" />
+    <EmbeddedResource Remove="PlaceDTOs\**" />
+    <None Remove="CommentDTOs\**" />
+    <None Remove="MediaDTOs\**" />
+    <None Remove="PlaceDTOs\**" />
   </ItemGroup>
 
   <ItemGroup>

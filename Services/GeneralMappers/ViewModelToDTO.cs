@@ -1,12 +1,6 @@
-﻿using DTO.CommentDTOs;
-using DTO.PlaceDTOs;
-using DTO.UserDTOs;
-using Models.MediaModel.Base;
-using Models.MediaModel.MatchingToPlace;
-using Services.GeneralMappers;
-using ViewModels.CommentViewModels;
-using ViewModels.PlaceViewModels;
-using ViewModels.UserViewModels;
+﻿using DTO;
+using ViewModels;
+using ViewModels.MediaViewModels.Base;
 
 namespace Services.GeneralMappers
 {
@@ -19,8 +13,8 @@ namespace Services.GeneralMappers
                 Id = place.Id,
                 Name = place.Name,
                 Category = place.Category,
-                UniqueName = place.UniqueName,
-                Location = place.Location,
+                Country = place.Country,
+                City = place.City,
                 Comments = place.Comments.ToDTO(),
                 Media = place.Media.ToDTO(),
             };
@@ -45,8 +39,7 @@ namespace Services.GeneralMappers
                 Created = commentVM.Created,
                 PlaceWhereLeft = commentVM.PlaceWhereLeft.ToDTO(),
                 PlaceWhereLeftId = commentVM.PlaceWhereLeftId,
-                UserWhoLeft = commentVM.UserWhoLeft.ToDTO(),
-                UserWhoLeftId = commentVM.UserWhoLeftId,
+                UserWhoLeft = commentVM.UserWhoLeft
             };
         }
             public static List<CommentDTO> ToDTO(this List<CommentViewModel> comments)
@@ -60,92 +53,63 @@ namespace Services.GeneralMappers
             }
             return commentDTOs;
         }
-        /*public static CommentBaseDTO ToDTO(this CommentBaseViewModel commentVM)
-        {
-            var comment = commentVM as CommentViewModel;
-            if (comment.Replies == null && comment.Replies.Count == 0)
-            {
-                return new ReplyDTO()
-                {
-                    Id = comment.Id,
-                    Content = comment.Content,
-                    CommentOnRepliedId = comment.CommentOnRepliedId,
-                    Created = comment.Created,
-                    PlaceWhereLeft = comment.PlaceWhereLeft.ToDTO(),
-                    PlaceWhereLeftId = comment.PlaceWhereLeftId,
-                    UserWhoLeft = comment.UserWhoLeft.ToDTO(),
-                    UserWhoLeftId = comment.UserWhoLeftId,
-                };
-            }
-            else
-            {
-                return new CommentDTO()
-                {
-                    Id = comment.Id,
-                    Content = comment.Content,
-                    Created = comment.Created,
-                    PlaceWhereLeft = comment.PlaceWhereLeft.ToDTO(),
-                    PlaceWhereLeftId = comment.PlaceWhereLeftId,
-                    UserWhoLeft = comment.UserWhoLeft.ToDTO(),
-                    UserWhoLeftId = comment.UserWhoLeftId,
-                    Replies = comment.Replies.ToDTO(),
-                };
-            }
-        }
-
-        public static List<CommentBaseDTO> ToDTO(this List<ReplyBaseViewModel> comments)
-        {
-            List<ReplyDTO> commentDTOs = new();
-            if (comments != null && comments.Count != 0)
-                foreach (var comment in comments)
-                {
-                    commentDTOs.Add(comment.ToDTO());
-                }
-            return commentDTOs;
-        }*/
-
-        public static FileContainerDTO ToDTO(this FileBaseViewModel file)
+        public static FileDTO ToDTO(this FileViewModel file)
         {
             return new()
             {
                 Id = file.Id,
+                Name = file.Name,
                 Path = file.Path,
-                UserWhoAttached = file.UserWhoAttached.ToDTO(),
+                UserWhoAttached = file.UserWhoAttached,
                 PlaceWhereAttached = file.PlaceWhereAttached.ToDTO(),
             };
         }
-        public static List<FileContainerDTO> ToDTO(this ICollection<FileBaseViewModel> files)
+        public static List<FileDTO> ToDTO(this ICollection<FileViewModel> files)
         {
             if (files == null || !files.Any())
                 return new();
-            List<FileContainerDTO> fileDTOs = new();
+            List<FileDTO> fileDTOs = new();
                 foreach (var file in files)
                 {
                     fileDTOs.Add(file.ToDTO());
                 }
             return fileDTOs;
         }
-        public static UserProfileDTO ToDTO(this UserProfileViewModel user)
+        public static RequestStoreDTO ToDTO(this RequestStoreViewModel request)
         {
             return new()
             {
-                Id = user.Id,
-                Name = user.Name,
-                Surname = user.Surname,
-                VisitedPlaces = user.VisitedPlaces.ToDTO(),
-                LeftComments = user.LeftComments.ToDTO(),
-                FilesAttached = user.FilesAttached.ToDTO(),
-                UserData = user.AuthentificationData.ToDTO()
+                Id = request.Id,
+                Place = request.Place.ToDTO(),
+                RequestedPlace = request.RequestedPlace.ToDTO(),
+                IsCreated = request.IsCreated,
+                IsDeleted = request.IsDeleted,
+                IsEdited = request.IsEdited,
+                UserWhoAddedRequest = request.UserWhoAddedRequest
             };
         }
-        public static UserDTO ToDTO(this UserViewModel data)
+        public static List<RequestStoreDTO> ToDTO(this List<RequestStoreViewModel> requests)
+        {
+            if (requests == null || requests.Count == 0)
+                return new();
+            List<RequestStoreDTO> requestsDTO = new();
+            foreach (var request in requests)
+            {
+                requestsDTO.Add(request.ToDTO());
+            }
+            return requestsDTO;
+        }
+        public static RequestedPlaceDTO ToDTO(this RequestedPlaceViewModel requested)
         {
             return new()
             {
-                Id = data.Id,
-                Email = data.Email,
-                Password = data.Password,
-                UserId = data.UserId
+                Id = requested.Id,
+                Name = requested.Name,
+                Category = requested.Category,
+                Country = requested.Country,
+                City = requested.City,
+                Comments = requested.Comments.ToDTO(),
+                Media = requested.Media.ToDTO(),
             };
         }
     }

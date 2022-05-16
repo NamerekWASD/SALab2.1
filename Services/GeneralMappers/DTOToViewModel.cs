@@ -1,12 +1,6 @@
-﻿using DTO.CommentDTOs;
-using DTO.PlaceDTOs;
-using DTO.UserDTOs;
-using Models.MediaModel.Base;
-using Models.MediaModel.MatchingToPlace;
-using Services.GeneralMappers;
-using ViewModels.CommentViewModels;
-using ViewModels.PlaceViewModels;
-using ViewModels.UserViewModels;
+﻿using DTO;
+using ViewModels;
+using ViewModels.MediaViewModels.Base;
 
 namespace Services.GeneralMappers
 {
@@ -19,10 +13,10 @@ namespace Services.GeneralMappers
                 Id = placeDTO.Id,
                 Name = placeDTO.Name,
                 Category = placeDTO.Category,
-                UniqueName = placeDTO.UniqueName,
-                Location = placeDTO.Location,
                 Comments = placeDTO.Comments.ToViewModel(),
                 Media = placeDTO.Media.ToViewModel(),
+                Country = placeDTO.Country,
+                City = placeDTO.City,
             };
         }
         public static List<PlaceViewModel> ToViewModel(this ICollection<PlaceDTO> placesDTO)
@@ -45,9 +39,7 @@ namespace Services.GeneralMappers
                 Created = commentDTO.Created,
                 PlaceWhereLeft = commentDTO.PlaceWhereLeft.ToViewModel(),
                 PlaceWhereLeftId = commentDTO.PlaceWhereLeftId,
-                UserWhoLeft = commentDTO.UserWhoLeft.ToViewModel(),
-                UserWhoLeftId = commentDTO.UserWhoLeftId,
-                Replies = commentDTO.Replies.ToViewModel(),
+                UserWhoLeft = commentDTO.UserWhoLeft
             };
         }
         public static List<CommentViewModel> ToViewModel(this List<CommentDTO> commentsDTO)
@@ -61,80 +53,63 @@ namespace Services.GeneralMappers
             }
             return commentsViewModel;
         }
-        /*public static CommentBaseViewModel ToViewModel(this CommentBaseDTO comment)
-        {
-            var commentDTO = comment as CommentDTO;
-            if (commentDTO.Replies == null && commentDTO.Replies.Count == 0)
-            {
-                return new ReplyViewModel()
-                {
-                    Id = commentDTO.Id,
-                    Content = commentDTO.Content,
-                    Created = commentDTO.Created,
-                    PlaceWhereLeft = commentDTO.PlaceWhereLeft.ToViewModel(),
-                    PlaceWhereLeftId = commentDTO.PlaceWhereLeftId,
-                    UserWhoLeft = commentDTO.UserWhoLeft.ToViewModel(),
-                    UserWhoLeftId = commentDTO.UserWhoLeftId,
-                };
-            }
-            else
-            {
-                return new CommentViewModel()
-                {
-                    Id = commentDTO.Id,
-                    Content = commentDTO.Content,
-                    Created = commentDTO.Created,
-                    PlaceWhereLeft = commentDTO.PlaceWhereLeft.ToViewModel(),
-                    PlaceWhereLeftId = commentDTO.PlaceWhereLeftId,
-                    UserWhoLeft = commentDTO.UserWhoLeft.ToViewModel(),
-                    UserWhoLeftId = commentDTO.UserWhoLeftId,
-                    Replies = commentDTO.Replies.ToViewModel(),
-                };
-            }
-        }
-        public static List<CommentBaseViewModel> ToViewModel(this List<CommentBaseDTO> commentsDTO)
-        {
-            List<CommentBaseViewModel> commentsViewModel = new ();
-            if (commentsDTO != null && commentsDTO.Count != 0)
-                foreach (var comment in commentsDTO)
-                {
-                    commentsViewModel.Add(comment.ToViewModel());
-                }
-            return commentsViewModel;
-        }*/
-
-        public static FileBaseViewModel ToViewModel(this FileContainerDTO FileDTO)
+        public static FileViewModel ToViewModel(this FileDTO FileDTO)
         {
             return new()
             {
                 Id = FileDTO.Id,
+                Name = FileDTO.Name,
                 Path = FileDTO.Path,
-                UserWhoAttached = FileDTO.UserWhoAttached.ToViewModel(),
+                UserWhoAttached = FileDTO.UserWhoAttached,
                 PlaceWhereAttached = FileDTO.PlaceWhereAttached.ToViewModel(),
             };
         }
-        public static List<FileBaseViewModel> ToViewModel(this ICollection<FileContainerDTO> filesDTO)
+        public static List<FileViewModel> ToViewModel(this ICollection<FileDTO> filesDTO)
         {
             if (filesDTO == null || !filesDTO.Any())
                 return new();
-            List <FileBaseViewModel> filesModel = new();
+            List <FileViewModel> filesModel = new();
             foreach (var file in filesDTO)
             {
                 filesModel.Add(file.ToViewModel());
             }
             return filesModel;
         }
-        public static UserProfileViewModel ToViewModel(this UserProfileDTO userDTO)
+        public static RequestStoreViewModel ToViewModel(this RequestStoreDTO request)
         {
             return new()
             {
-                Id = userDTO.Id,
-                Name = userDTO.Name,
-                Surname = userDTO.Surname,
-                Status = userDTO.Status,
-                VisitedPlaces = userDTO.VisitedPlaces.ToViewModel(),
-                LeftComments = userDTO.LeftComments.ToViewModel(),
-                FilesAttached = userDTO.FilesAttached.ToViewModel(),
+                Id = request.Id,
+                Place = request.Place.ToViewModel(),
+                RequestedPlace = request.RequestedPlace.ToViewModel(),
+                IsCreated = request.IsCreated,
+                IsDeleted = request.IsDeleted,
+                IsEdited = request.IsEdited,
+                UserWhoAddedRequest = request.UserWhoAddedRequest
+            };
+        }
+        public static List<RequestStoreViewModel> ToViewModel(this List<RequestStoreDTO> requests)
+        {
+            if (requests == null || requests.Count == 0)
+                return new();
+            List<RequestStoreViewModel> requestVM = new();
+            foreach (var request in requests)
+            {
+                requestVM.Add(request.ToViewModel());
+            }
+            return requestVM;
+        }
+        public static RequestedPlaceViewModel ToViewModel(this RequestedPlaceDTO requested)
+        {
+            return new()
+            {
+                Id = requested.Id,
+                Name = requested.Name,
+                Category = requested.Category,
+                Country = requested.Country,
+                City = requested.City,
+                Comments = requested.Comments.ToViewModel(),
+                Media = requested.Media.ToViewModel(),
             };
         }
     }

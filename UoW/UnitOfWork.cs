@@ -1,15 +1,18 @@
-﻿using DAL.Context;
+﻿using DAL.Contexts;
+using Models;
 using Repositories;
+using Repositories.Base;
+
 
 namespace UoW
 {
     public class UnitOfWork : IDisposable
     {
-        private PlaceContext db = new();
+        private ApplicationDbContext db = new ApplicationDbContext();
         private PlaceRepository PlaceRepository;
-        private UserRepository UserRepository;
+        private RequestRepository RequestRepository;
 
-        public PlaceRepository Places
+        public IRepository<PlaceModel> Places
         {
             get
             {
@@ -18,14 +21,13 @@ namespace UoW
                 return PlaceRepository;
             }
         }
-
-        public UserRepository Usersdata
+        public IRepository<RequestStoreModel> Requests
         {
             get
             {
-                if (UserRepository == null)
-                    UserRepository = new UserRepository(db);
-                return UserRepository;
+                if (RequestRepository == null)
+                    RequestRepository = new RequestRepository(db);
+                return RequestRepository;
             }
         }
 

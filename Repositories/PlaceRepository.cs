@@ -1,20 +1,20 @@
-﻿using DAL.Context;
+﻿using DAL.Contexts;
 using Microsoft.EntityFrameworkCore;
-using Models.PlaceModels;
+using Models;
 using Repositories.Base;
 
 namespace Repositories
 {
     public class PlaceRepository : IRepository<PlaceModel>
     {
-        private PlaceContext db;
-        public PlaceRepository(PlaceContext db) { this.db = db; }
+        private ApplicationDbContext db;
+        public PlaceRepository(ApplicationDbContext db) { this.db = db; }
         public void Create(PlaceModel place)
         {
             db.Places.Add(place);
         }
 
-        public PlaceModel Get(int id)
+        public PlaceModel Get(int? id)
         {
             return db.Places.Single(x => x.Id == id);
         }
@@ -26,14 +26,15 @@ namespace Repositories
         public void Delete(PlaceModel place)
         {
 
-            PlaceModel order = db.Places.Find(place);
-            if (order != null)
-                db.Places.Remove(order);
+            PlaceModel pl = db.Places.FirstOrDefault(r => r.Id == place.Id);
+            if (pl != null)
+                db.Places.Remove(pl);
         }
 
         public void Update(PlaceModel newPlace)
         {
-            db.Entry(newPlace).State = EntityState.Modified;
+            Delete(newPlace);
+            Create(newPlace);
         }
     }
 }
