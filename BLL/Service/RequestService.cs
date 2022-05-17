@@ -3,13 +3,19 @@ using DTO;
 using UoW;
 using Services.GeneralMappers;
 using Exceptions;
+using Services.PlaceMapper;
 
 namespace BLL.Service
 {
-    public class RequestService : IRequestService
+    public class RequestService : IRequestService, ITestingRequestService
     {
-        private static readonly UnitOfWork UoW = new();
-
+        private static UnitOfWork UoW = new();
+        public RequestService() { }
+        // For tests
+        public RequestService(string connectionString)
+        {
+            UoW = new(connectionString);
+        }
         public List<RequestStoreDTO> GetRequests()
         {
             return UoW.Requests
@@ -45,14 +51,22 @@ namespace BLL.Service
         }
         private RequestStoreDTO CheckRequstExist(int? id)
         {
+            RequestStoreDTO request = null;
             if (id == null)
             {
                 return null;
             }
-            var request = UoW.Requests
+            try
+            {
+                request = UoW.Requests
                 .Get(id)
                 .ToDTO();
-            if(request == null)
+            }
+            catch (InvalidOperationException)
+            {
+                return null;
+            }
+            if (request == null)
             {
                 return null;
             }
@@ -61,34 +75,26 @@ namespace BLL.Service
         public RequestStoreDTO AcceptManager(RequestStoreDTO request)
         {
 
-            var place = request.Place;
-            if (place == null)
-            {
-                NotFound();
-            }
-
             if (request.IsCreated)
             {
-                UoW.Places.Create(place.ToModel());
+                UoW.Places.Create(request.RequestedPlace.ToDTO().ToModel());
             }
             if (request.IsEdited)
             {
-                var editedPlace = request.RequestedPlace;
-                place = new()
+                var requestedPlace = request.RequestedPlace;
+                if (requestedPlace == null)
                 {
-                    Id = place.Id,
-                    Name = editedPlace.Name,
-                    Category = editedPlace.Category,
-                    City = editedPlace.City,
-                    Country = editedPlace.Country,
-                    Comments = editedPlace.Comments,
-                    Media = editedPlace.Media,
-                };
-                UoW.Places.Update(place.ToModel());
+                    NotFound();
+                }
+                requestedPlace.Id = request.Place.Id;
+                UoW.Places.Update(requestedPlace
+                    .ToDTOIncludeId()
+                    .ToModel());
             }
             if (request.IsDeleted)
             {
-                UoW.Places.Delete(place.ToModel());
+                var requestedPlace = request.Place;
+                UoW.Places.Delete(requestedPlace.ToModel());
             }
             DeleteRequest(request.Id);
 
@@ -98,6 +104,34 @@ namespace BLL.Service
         private void NotFound()
         {
             throw new NotFoundException("Place did not found");
+        }
+        public void AddCreateRequest(RequestedPlaceDTO requestedPlace, string userName)
+        {
+            UoW.Requests.Create(new RequestStoreDTO()
+            {
+                RequestedPlace = requestedPlace,
+                IsCreated = true,
+            }.ToModel());
+            UoW.Save();
+        }
+        public void AddEditRequest(PlaceDTO place, string userName, RequestedPlaceDTO requestedPlace)
+        {
+            UoW.Requests.Create(new RequestStoreDTO()
+            {
+                Place = place,
+                RequestedPlace = requestedPlace,
+                IsEdited = true,
+            }.ToModel());
+            UoW.Save();
+        }
+        public void AddDeleteRequest(PlaceDTO place, string userName)
+        {
+            UoW.Requests.Create(new RequestStoreDTO()
+            {
+                Place = place,
+                IsDeleted = true,
+            }.ToModel());
+            UoW.Save();
         }
     }
 }

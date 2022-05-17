@@ -9,7 +9,7 @@ namespace ViewModels
     public class RequestStoreViewModel
     {
         public int Id { get; set; }
-        public virtual PlaceViewModel Place { get; set; }
+        public virtual PlaceViewModel? Place { get; set; }
         public virtual RequestedPlaceViewModel? RequestedPlace { get; set; }
         public string UserWhoAddedRequest { get; set; }
         public bool IsCreated { get; set; }
@@ -18,15 +18,16 @@ namespace ViewModels
         public override string ToString()
         {
             var str = $"Id: {Id}" +
-                $"\nRequested place: \n{Place}" +
                 $"\nAction: ";
             if (IsCreated)
             {
                 str += $"created;";
+                str += $"\nCreated place: {RequestedPlace}";
             }
             if (IsEdited)
             {
                 str += $"edited;" +
+                    $"\nPrimal place: {Place}" +
                     $"\nEdited place: {RequestedPlace}";
             }
             if (IsDeleted)

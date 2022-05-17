@@ -8,10 +8,13 @@ namespace UoW
 {
     public class UnitOfWork : IDisposable
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private ApplicationDbContext db = new();
         private PlaceRepository PlaceRepository;
         private RequestRepository RequestRepository;
-
+        public UnitOfWork() { }
+        public UnitOfWork(string connectionString) {
+            db = new(connectionString);
+        }
         public IRepository<PlaceModel> Places
         {
             get

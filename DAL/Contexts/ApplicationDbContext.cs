@@ -5,10 +5,19 @@ namespace DAL.Contexts
 {
     public class ApplicationDbContext : DbContext
     {
+        private string ConnectionString { get; set; }
         public ApplicationDbContext()
+            :base()
         {
             /*Database.EnsureDeleted();
             Database.EnsureCreated();*/
+        }
+        public ApplicationDbContext(string connectionString)
+            : base()
+        {
+            ConnectionString = connectionString;
+            Database.EnsureDeleted();
+            Database.EnsureCreated();
         }
         public DbSet<PlaceModel> Places { get; set; }
         public DbSet<RequestedPlace> RequestedPlaces { get; set; }
@@ -18,8 +27,15 @@ namespace DAL.Contexts
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder
-                .UseLazyLoadingProxies()
-                .UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=PCOdb;Trusted_Connection=True;");
+                .UseLazyLoadingProxies();
+            if (ConnectionString != null && ConnectionString.Length > 0)
+            {
+                optionsBuilder.UseSqlServer(ConnectionString);
+            }
+            else
+            { 
+                optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=PCOdb;Trusted_Connection=True;");
+            }
         }
     }
 }

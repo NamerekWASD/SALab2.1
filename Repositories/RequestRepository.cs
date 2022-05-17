@@ -9,9 +9,9 @@ namespace Repositories
     {
         private ApplicationDbContext db;
         public RequestRepository(ApplicationDbContext db) { this.db = db; }
-        public void Create(RequestStoreModel place)
+        public void Create(RequestStoreModel request)
         {
-            db.Requests.Add(place);
+            db.Requests.Add(request);
         }
 
         public RequestStoreModel Get(int? id)

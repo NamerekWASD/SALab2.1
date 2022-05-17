@@ -83,8 +83,8 @@ namespace Services.GeneralMappers
             return new()
             {
                 Id = request.Id,
-                Place = request.Place.ToModel(),
-                RequestedPlace = request.RequestedPlace.ToModel(),
+                Place = request.Place?.ToModel(),
+                RequestedPlace = request.RequestedPlace?.ToModel(),
                 IsCreated = request.IsCreated,
                 IsDeleted = request.IsDeleted,
                 IsEdited = request.IsEdited,

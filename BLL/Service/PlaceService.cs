@@ -8,7 +8,13 @@ namespace BLL.Service
 {
     public class PlaceService : IPlaceService
     {
-        private static readonly UnitOfWork UoW = new();
+        private static UnitOfWork UoW = new();
+        public PlaceService() { }
+        //For tests
+        public PlaceService(string connectionString) 
+        { 
+            UoW = new(connectionString);
+        }
         public PlaceDTO AddPlace(string name, string category, string country, string city)
         {
             var place = CheckPlaceExist(name);
@@ -33,7 +39,8 @@ namespace BLL.Service
             var placesFound = from p in UoW.Places.GetAll()
                               .ToList()
                               .ToDTO()
-                              where p.Name.Contains(keyWord)
+                              where p.Name.ToUpper()
+                              .Contains(keyWord.ToUpper())
                               select p;
 
             if (placesFound is null || !placesFound.Any())
@@ -90,13 +97,21 @@ namespace BLL.Service
         }
         private PlaceDTO CheckPlaceExist(int? id)
         {
-            if(id == null)
+            PlaceDTO place = null;
+            if (id == null)
             {
                 return null;
             }
-            var place = UoW.Places
+
+            try
+            {
+                place = UoW.Places
                 .Get(id)
                 .ToDTO();
+            }catch (InvalidOperationException)
+            {
+                return null;
+            }
             if (place == null)
             {
                 return null;
