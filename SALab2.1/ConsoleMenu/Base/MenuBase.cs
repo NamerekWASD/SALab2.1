@@ -1,6 +1,8 @@
 ﻿using BLL.Service;
 using BLL.Service.Base;
 using Exceptions;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using SALab2._1.ConsoleMenu.Interfaces;
 using System.Text.RegularExpressions;
 using ViewModels;
@@ -39,8 +41,8 @@ namespace SALab2._1.ConsoleMenu.Base
         }
         protected abstract ConsoleMode ProcessOption(int option);
 
-        protected IPlaceService PlaceService = new PlaceService();
-        protected IRequestService RequestService = new RequestService();
+        protected IPlaceService PlaceService;
+        protected IRequestService RequestService;
         protected virtual string ReadDataInput(string message, string pattern = "")
         {
             if (pattern != "")

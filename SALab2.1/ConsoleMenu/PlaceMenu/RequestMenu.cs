@@ -1,4 +1,7 @@
-﻿using SALab2._1.ConsoleMenu.Base;
+﻿using BLL.Service;
+using DAL.Contexts;
+using Microsoft.EntityFrameworkCore;
+using SALab2._1.ConsoleMenu.Base;
 using Services.GeneralMappers;
 using ViewModels;
 
@@ -15,6 +18,7 @@ namespace SALab2._1.ConsoleMenu.PlaceMenu
         public RequestMenu() :
             base(options)
         {
+            RequestService = new RequestService();
         }
 
         private enum Option

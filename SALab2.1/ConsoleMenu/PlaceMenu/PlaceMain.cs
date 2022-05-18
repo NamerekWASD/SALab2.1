@@ -1,4 +1,7 @@
-﻿using Exceptions;
+﻿using BLL.Service;
+using DAL.Contexts;
+using Exceptions;
+using Microsoft.EntityFrameworkCore;
 using SALab2._1.ConsoleMenu.Base;
 using Services.GeneralMappers;
 using System;
@@ -20,8 +23,8 @@ namespace SALab2._1.ConsoleMenu.PlaceMenu
             "4. back."
         };
 
-        public PlaceMain():
-            base(options)
+        public PlaceMain()
+            : base(options)
         {
         }
 

@@ -1,7 +1,9 @@
 using BLL.Service;
 using BLL.Service.Base;
+using DAL.Contexts;
 using DTO;
 using Exceptions;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 
@@ -10,12 +12,13 @@ namespace ModuleTests
     [TestClass]
     public class PlaceServiceTests
     {
-        private const string TestConnectionString = "Server=(localdb)\\mssqllocaldb;Database=PCOTestdb;Trusted_Connection=True;";
-        private IPlaceService placeService = new PlaceService(TestConnectionString);
+        private static string ConnectionString = "Server=(localdb)\\mssqllocaldb;Database=PCOTestdb;Trusted_Connection=True;";
+        
         [TestMethod]
         public void AddingPlace()
         {
             // Arrange
+            IPlaceService placeService = new PlaceService(ConnectionString);
             var place = CreateTestPlace();
             // Act
             placeService.AddPlace(place.Name, place.Category, place.Country, place.City);
@@ -32,6 +35,7 @@ namespace ModuleTests
         public void AddingExistingPlace()
         {
             // Arrange
+            IPlaceService placeService = new PlaceService(ConnectionString);
             var place = CreateTestPlace();
             placeService.AddPlace(place.Name, place.Category, place.Country, place.City);
             try 
@@ -49,6 +53,7 @@ namespace ModuleTests
         public void EditingExistingPlace()
         {
             // Arrange
+            IPlaceService placeService = new PlaceService(ConnectionString);
             var place = CreateTestPlace();
             placeService.AddPlace(place.Name, place.Category, place.Country, place.City);
 
@@ -67,6 +72,7 @@ namespace ModuleTests
         {
             // Arrange
             var place = CreateTestPlace();
+            IPlaceService placeService = new PlaceService(ConnectionString);
             placeService.AddPlace(place.Name, place.Category, place.Country, place.City);
 
             //Act
@@ -87,6 +93,7 @@ namespace ModuleTests
         {
             // Arrange
             var places = CreateTestListPlace();
+            IPlaceService placeService = new PlaceService(ConnectionString);
             placeService.AddPlace(places[0].Name, places[0].Category, places[0].Country, places[0].City);
             placeService.AddPlace(places[1].Name, places[1].Category, places[1].Country, places[1].City);
             placeService.AddPlace(places[2].Name, places[2].Category, places[2].Country, places[2].City);
@@ -104,6 +111,7 @@ namespace ModuleTests
         {
             // Arrange
             var places = CreateTestListPlace();
+            IPlaceService placeService = new PlaceService(ConnectionString);
             placeService.AddPlace(places[0].Name, places[0].Category, places[0].Country, places[0].City);
             placeService.AddPlace(places[1].Name, places[1].Category, places[1].Country, places[1].City);
             placeService.AddPlace(places[2].Name, places[2].Category, places[2].Country, places[2].City);

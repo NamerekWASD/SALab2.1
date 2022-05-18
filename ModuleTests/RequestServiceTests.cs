@@ -1,7 +1,9 @@
 ﻿using BLL.Service;
 using BLL.Service.Base;
+using DAL.Contexts;
 using DTO;
 using Exceptions;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace ModuleTests
@@ -9,13 +11,12 @@ namespace ModuleTests
     [TestClass]
     public class RequestServiceTests
     {
-        private const string TestConnectionString = "Server=(localdb)\\mssqllocaldb;Database=PCOTestdb;Trusted_Connection=True;";
-        private ITestingRequestService requestService = new RequestService(TestConnectionString);
-        private IPlaceService placeService = new PlaceService(TestConnectionString);
+        private static string ConnectionString = "Server=(localdb)\\mssqllocaldb;Database=PCOTestdb;Trusted_Connection=True;MultipleActiveResultSets=true";
         [TestMethod]
         public void AddingCreateRequestToDB()
         {
             // Arrange
+            ITestingRequestService requestService = new RequestService(ConnectionString);
             var place = CreateTestPlace();
 
             string userName = "Nikola";
@@ -36,6 +37,8 @@ namespace ModuleTests
         public void AddingCreateRequestToDBAndAcceptingIt()
         {
             // Arrange
+            IPlaceService placeService = new PlaceService(ConnectionString);
+            ITestingRequestService requestService = new RequestService(ConnectionString);
             var place = CreateTestPlace();
 
             string userName = "Nikola";
@@ -63,6 +66,8 @@ namespace ModuleTests
         public void AddingEditRequestToDBAndAcceptingIt()
         {
             // Arrange
+            IPlaceService placeService = new PlaceService(ConnectionString);
+            ITestingRequestService requestService = new RequestService(ConnectionString);
             var place = CreateTestPlace();
             string userName = "Nikola";
 
@@ -84,6 +89,8 @@ namespace ModuleTests
         public void AddingDeleteRequestToDBAndAcceptingIt()
         {
             // Arrange
+            IPlaceService placeService = new PlaceService(ConnectionString);
+            ITestingRequestService requestService = new RequestService(ConnectionString);
             var place = CreateTestPlace();
             string userName = "Nikola";
 
@@ -109,6 +116,8 @@ namespace ModuleTests
         public void AddingSomeRequestToDBAndDecliningIt()
         {
             // Arrange
+            IPlaceService placeService = new PlaceService(ConnectionString);
+            ITestingRequestService requestService = new RequestService(ConnectionString);
             var place = CreateTestPlace();
             string userName = "Nikola";
 
